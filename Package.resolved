@@ -1,0 +1,24 @@
+{
+  "originHash" : "ca45ea431e306903f9a3441d26c6c0a4586ec1f12c571dfb3d4c44b00de8a840",
+  "pins" : [
+    {
+      "identity" : "rainbowparser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://gitlab.com/tcc-nshiftui/mobile/ios/packages/rainbowparser.git",
+      "state" : {
+        "branch" : "release/0.1.0-beta.1",
+        "revision" : "275992eda65959d5398c4efe7e7bc935b96a9101"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "9de99a78f099e59caf2b2beec65a4c45d54b2081",
+        "version" : "603.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}
