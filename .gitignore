@@ -1,0 +1,127 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.VolumeIcon.icns
+Icon?
+
+# Xcode user data and local state
+xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+*.moved-aside
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcactivitylog
+*.xcdebugger/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+
+# Generated Xcode project (this repo is SPM; Package.swift is canonical)
+*.xcodeproj/
+
+# Xcode build products and reports
+DerivedData/
+Derived/
+build/
+Build/
+*.hmap
+*.ipa
+*.xcarchive/
+*.xcresult
+*.resultbundle/
+*.dSYM
+*.dSYM.zip
+*.bcsymbolmap
+*.app.dSYM/
+*.app.dSYM.zip
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.pins
+Package.resolved
+
+# Code coverage and profiling
+*.profraw
+*.profdata
+*.coverage
+*.xccovarchive/
+*.xccovreport/
+default.profraw
+
+# CocoaPods
+Pods/
+.symlinks/
+
+# Carthage
+Carthage/Build/
+Carthage/Checkouts/
+Carthage/DerivedData/
+
+# Fastlane generated files
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+fastlane/logs/
+
+# Swift and iOS tooling caches
+.swiftpm-cache/
+.sourcekit-lsp/
+.index-build/
+.tuist-cache/
+.tuist-generated/
+.periphery/
+.swiftformat.cache
+.swiftlint.cache
+.jazzy/
+.docc-build/
+
+# Dependency and package-manager caches
+.bundle/
+vendor/bundle/
+node_modules/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+.netrc
+*.mobileprovision
+*.provisionprofile
+*.p12
+*.cer
+*.certSigningRequest
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*.orig
+*.rej
+.tmp/
+tmp/
+temp/
+
+# IDE/editor local settings
+.idea/
+.vscode/
+
+# Agent local overrides
+AGENTS.local.md
+CLAUDE.local.md
+.claude/settings.local.json
+.cursor/mcp.json

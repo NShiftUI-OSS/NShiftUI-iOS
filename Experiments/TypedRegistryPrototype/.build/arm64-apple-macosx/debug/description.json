@@ -1,0 +1,678 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.xctest/Contents/MacOS/TypedRegistryPrototypePackageTests",
+      "packagePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype",
+      "productName" : "TypedRegistryPrototypePackageTests"
+    }
+  ],
+  "copyCommands" : {
+
+  },
+  "explicitTargetDependencyImportCheckingMode" : {
+    "none" : {
+
+    }
+  },
+  "generatedSourceTargetSet" : [
+
+  ],
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.TypedRegistryPrototype-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/sources",
+      "importPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/Modules.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUICore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUINodeView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIPlugin.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIRegistry.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TypedRegistryPrototype",
+      "moduleOutputPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototype.swiftmodule",
+      "objects" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.swift.o",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.swift.o",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.swift.o",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.swift.o",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/include/TypedRegistryPrototype-Swift.h",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "typedregistryprototype"
+      ],
+      "outputFileMapPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototype.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/Modules.swift",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUICore.swift",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUINodeView.swift",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIPlugin.swift",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIRegistry.swift"
+      ],
+      "tempsPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TypedRegistryPrototypePackageTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/sources",
+      "importPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototypeTests.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TypedRegistryPrototypePackageTests",
+      "moduleOutputPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototypePackageTests.swiftmodule",
+      "objects" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/include/TypedRegistryPrototypePackageTests-Swift.h",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "typedregistryprototype"
+      ],
+      "outputFileMapPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototypePackageTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift"
+      ],
+      "tempsPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.TypedRegistryPrototypeTests-arm64-apple-macosx-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "fileList" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/sources",
+      "importPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Tests/TypedRegistryPrototypeTests/TypedRegistryPrototypeTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototype.swiftmodule"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/sources"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "TypedRegistryPrototypeTests",
+      "moduleOutputPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototypeTests.swiftmodule",
+      "objects" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/TypedRegistryPrototypeTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx14.0",
+        "-incremental",
+        "-enable-batch-mode",
+        "-serialize-diagnostics",
+        "-index-store-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-Xfrontend",
+        "-enable-cross-import-overlays",
+        "-j12",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+        "-module-cache-path",
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-swift-version",
+        "6",
+        "-plugin-path",
+        "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-g",
+        "-Xcc",
+        "-isysroot",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+        "-Xcc",
+        "-F",
+        "-Xcc",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-Xcc",
+        "-fPIC",
+        "-Xcc",
+        "-g",
+        "-package-name",
+        "typedregistryprototype"
+      ],
+      "outputFileMapPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/output-file-map.json",
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/TypedRegistryPrototypeTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules/TypedRegistryPrototypeTests.swiftmodule"
+        }
+      ],
+      "prepareForIndexing" : false,
+      "sources" : [
+        "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Tests/TypedRegistryPrototypeTests/TypedRegistryPrototypeTests.swift"
+      ],
+      "tempsPath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "swiftTargetScanArgs" : {
+    "TypedRegistryPrototype" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TypedRegistryPrototype",
+      "-package-name",
+      "typedregistryprototype",
+      "-c",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/Modules.swift",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUICore.swift",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUINodeView.swift",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIPlugin.swift",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIRegistry.swift",
+      "-I",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/include/TypedRegistryPrototype-Swift.h",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "typedregistryprototype",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "TypedRegistryPrototypePackageTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TypedRegistryPrototypePackageTests",
+      "-package-name",
+      "typedregistryprototype",
+      "-c",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift",
+      "-I",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-emit-objc-header",
+      "-emit-objc-header-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/include/TypedRegistryPrototypePackageTests-Swift.h",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "typedregistryprototype",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ],
+    "TypedRegistryPrototypeTests" : [
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "-module-name",
+      "TypedRegistryPrototypeTests",
+      "-package-name",
+      "typedregistryprototype",
+      "-c",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Tests/TypedRegistryPrototypeTests/TypedRegistryPrototypeTests.swift",
+      "-I",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/Modules",
+      "-target",
+      "arm64-apple-macosx14.0",
+      "-incremental",
+      "-enable-batch-mode",
+      "-serialize-diagnostics",
+      "-index-store-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/index/store",
+      "-Onone",
+      "-enable-testing",
+      "-Xfrontend",
+      "-enable-cross-import-overlays",
+      "-j12",
+      "-DSWIFT_PACKAGE",
+      "-DDEBUG",
+      "-DSWIFT_MODULE_RESOURCE_BUNDLE_UNAVAILABLE",
+      "-module-cache-path",
+      "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/ModuleCache",
+      "-parseable-output",
+      "-parse-as-library",
+      "-swift-version",
+      "6",
+      "-plugin-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing",
+      "-sdk",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-F",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-I",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-L",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+      "-g",
+      "-Xcc",
+      "-isysroot",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX26.5.sdk",
+      "-Xcc",
+      "-F",
+      "-Xcc",
+      "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+      "-Xcc",
+      "-fPIC",
+      "-Xcc",
+      "-g",
+      "-package-name",
+      "typedregistryprototype",
+      "-driver-use-frontend-path",
+      "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+    ]
+  },
+  "targetDependencyMap" : {
+    "TypedRegistryPrototype" : [
+
+    ],
+    "TypedRegistryPrototypePackageTests" : [
+      "TypedRegistryPrototypeTests",
+      "TypedRegistryPrototype"
+    ],
+    "TypedRegistryPrototypeTests" : [
+      "TypedRegistryPrototype"
+    ]
+  },
+  "testDiscoveryCommands" : {
+
+  },
+  "testEntryPointCommands" : {
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift" : {
+      "inputs" : [
+
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift"
+        }
+      ]
+    }
+  },
+  "traitConfiguration" : {
+    "default" : {
+
+    }
+  },
+  "writeCommands" : {
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/Modules.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUICore.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUINodeView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIPlugin.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIRegistry.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/sources"
+    },
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/sources"
+    },
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.product/Objects.LinkFileList" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<link-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/TypedRegistryPrototypeTests.swift.o"
+        }
+      ],
+      "outputFilePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.product/Objects.LinkFileList"
+    },
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/sources" : {
+      "alwaysOutOfDate" : false,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<sources-file-list>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Tests/TypedRegistryPrototypeTests/TypedRegistryPrototypeTests.swift"
+        }
+      ],
+      "outputFilePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypeTests.build/sources"
+    },
+    "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt" : {
+      "alwaysOutOfDate" : true,
+      "inputs" : [
+        {
+          "kind" : "virtual",
+          "name" : "<swift-get-version>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"
+        }
+      ],
+      "outputFilePath" : "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/swift-version--58304C5D6DBC2206.txt"
+    }
+  }
+}

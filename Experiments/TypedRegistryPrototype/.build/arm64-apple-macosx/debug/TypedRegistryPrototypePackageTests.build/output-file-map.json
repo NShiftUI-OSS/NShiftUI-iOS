@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/primary.swiftdeps"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.derived/runner.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototypePackageTests.build/runner.dia"
+  }
+}

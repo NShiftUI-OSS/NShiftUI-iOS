@@ -1,0 +1,40 @@
+{
+  "": {
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/primary.swiftdeps"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/Modules.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/Modules.dia"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUICore.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUICore.dia"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUINodeView.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUINodeView.dia"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIPlugin.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIPlugin.dia"
+  },
+  "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/Sources/TypedRegistryPrototype/SDUIRegistry.swift": {
+    "dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.d",
+    "object": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.swift.o",
+    "swiftmodule": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry~partial.swiftmodule",
+    "swift-dependencies": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.swiftdeps",
+    "diagnostics": "/Users/arthurporto/Developer/Personal/GitLab/tcc/mobile/iOS/packages/nshiftui/Experiments/TypedRegistryPrototype/.build/arm64-apple-macosx/debug/TypedRegistryPrototype.build/SDUIRegistry.dia"
+  }
+}
