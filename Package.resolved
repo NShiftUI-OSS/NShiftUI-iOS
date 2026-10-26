@@ -1,13 +1,13 @@
 {
-  "originHash" : "ca45ea431e306903f9a3441d26c6c0a4586ec1f12c571dfb3d4c44b00de8a840",
+  "originHash" : "a6196ea292a15e973a47c2f2ee68023261097424c9514c36a3950c85616a906c",
   "pins" : [
     {
-      "identity" : "rainbowparser",
+      "identity" : "rainbowparser-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://gitlab.com/tcc-nshiftui/mobile/ios/packages/rainbowparser.git",
+      "location" : "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
       "state" : {
-        "branch" : "release/0.1.0-beta.1",
-        "revision" : "275992eda65959d5398c4efe7e7bc935b96a9101"
+        "revision" : "2a9a7c4a08a097bb75c9e51eda53316cef50d82b",
+        "version" : "0.1.0-beta.1"
       }
     },
     {

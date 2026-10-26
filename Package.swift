@@ -18,8 +18,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "603.0.0-latest"),
         .package(
-            url: "https://gitlab.com/tcc-nshiftui/mobile/ios/packages/rainbowparser.git",
-            branch: "release/0.1.0-beta.1"
+            url: "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
+            exact: "0.1.0-beta.1"
         ),
     ],
     targets: [
@@ -58,7 +58,7 @@ let package = Package(
                 "NShiftUIMacros",
                 .product(
                     name: "RainbowParser",
-                    package: "rainbowparser"
+                    package: "RainbowParser-iOS"
                 ),
             ]
         ),
@@ -73,7 +73,7 @@ let package = Package(
                 .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax"),
                 .product(
                     name: "RainbowParser",
-                    package: "rainbowparser"
+                    package: "RainbowParser-iOS"
                 ),
             ]
         ),
