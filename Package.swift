@@ -19,7 +19,7 @@ let package = Package(
         .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "603.0.0-latest"),
         .package(
             url: "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
-            exact: "0.1.0-beta.1"
+            exact: "0.2.0-beta.1"
         ),
     ],
     targets: [
