@@ -32,10 +32,10 @@ final class NShiftRainbowCompilerTests: XCTestCase {
           )
         ) {
           NavLeading {
-            Icon(name: back, size: 22)
+            Icon(name: .back, size: 22)
           }
           NavTrailing {
-            Icon(name: settings, size: 22)
+            Icon(name: .settings, size: 22)
           }
           Scroll {
             Text(text: "Hello", size: 16)
