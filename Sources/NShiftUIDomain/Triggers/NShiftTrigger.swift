@@ -23,7 +23,7 @@ public struct NShiftTrigger: Equatable, Hashable, Sendable, ExpressibleByStringL
             return false
         }
 
-        guard value.unicodeScalars.allSatisfy(isASCIILetter) else {
+        guard value.unicodeScalars.allSatisfy({ isASCIILetter($0) || isASCIIDigit($0) }) else {
             return false
         }
 
@@ -38,6 +38,11 @@ public struct NShiftTrigger: Equatable, Hashable, Sendable, ExpressibleByStringL
 
             while index < value.endIndex,
                   isLowercaseASCIILetter(at: value, index: index) {
+                index = value.index(after: index)
+            }
+
+            while index < value.endIndex,
+                  isASCIIDigit(at: value, index: index) {
                 index = value.index(after: index)
             }
         }
@@ -55,6 +60,18 @@ public struct NShiftTrigger: Equatable, Hashable, Sendable, ExpressibleByStringL
 
     private static func isLowercaseASCIILetter(_ scalar: UnicodeScalar) -> Bool {
         (97...122).contains(scalar.value)
+    }
+
+    private static func isASCIIDigit(_ scalar: UnicodeScalar) -> Bool {
+        (48...57).contains(scalar.value)
+    }
+
+    private static func isASCIIDigit(at value: String, index: String.Index) -> Bool {
+        guard let scalar = value[index].unicodeScalars.first else {
+            return false
+        }
+
+        return isASCIIDigit(scalar)
     }
 
     private static func isUppercaseASCIILetter(at value: String, index: String.Index) -> Bool {
