@@ -77,7 +77,17 @@ enum NShiftPluginMacroRole: String, CaseIterable {
 
         let viewModelInsertion: String
         if let viewModelType, usesStateObject {
-            viewModelInsertion = "\n        guard let viewModel = resolver.resolve(\(viewModelType).self) else {\n        return nil\n        }\n        self._viewModel = SwiftUI.StateObject(wrappedValue: viewModel)"
+            viewModelInsertion = """
+
+                    guard let viewModel = resolver.resolve(\(viewModelType).self) else {
+                    return nil
+                    }
+                    self._viewModel = SwiftUI.StateObject(wrappedValue: viewModel)
+                    self.observedChildrenViewModel = NShiftUI.NShiftObservedPluginViewModel(base: viewModel)
+                    if let engine {
+                        NShiftUI.NShiftPluginViewModelCascade.install(viewModel, on: engine)
+                    }
+            """
         } else if let viewModelType {
             viewModelInsertion = "\n        guard let viewModel = resolver.resolve(\(viewModelType).self) else {\n        return nil\n        }\n        self.viewModel = viewModel"
         } else {
@@ -271,6 +281,24 @@ private enum NShiftPluginMemberExpansion {
             """,
         ])
 
+        let publishesCascade = usesStateObject || resolvedViewModelType == nil
+        let cascadeName = usesStateObject ? "observedChildrenViewModel" : "viewModel"
+        if usesStateObject {
+            members.append(
+                "private let observedChildrenViewModel: NShiftUI.NShiftObservedPluginViewModel"
+            )
+        } else if resolvedViewModelType == nil {
+            members.append(
+                "@SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel"
+            )
+        }
+        let cascaded: (String) -> String = { call in
+            publishesCascade ? "\(call).environmentObject(\(cascadeName))" : call
+        }
+        let closureSuffix = publishesCascade
+            ? "\n        .environmentObject(\(cascadeName))"
+            : ""
+
         if let slotsKeyType {
             members.append(contentsOf: [
                 """
@@ -284,7 +312,7 @@ private enum NShiftPluginMemberExpansion {
                 """
                 @SwiftUI.ViewBuilder
                 private func slots(_ key: \(raw: slotsKeyType)) -> some SwiftUI.View {
-                    slotsAccessor(key)
+                    \(raw: cascaded("slotsAccessor(key)"))
                 }
                 """,
                 """
@@ -296,7 +324,7 @@ private enum NShiftPluginMemberExpansion {
                         NShiftUI.NShiftNodeView
                     ) -> Content
                 ) -> some SwiftUI.View {
-                    slotsAccessor(key, transform: transform)
+                    \(raw: cascaded("slotsAccessor(key, transform: transform)"))
                 }
                 """,
                 """
@@ -307,7 +335,7 @@ private enum NShiftPluginMemberExpansion {
                 ) -> some SwiftUI.View {
                     slotsAccessor(key) { _, view in
                         transform(view)
-                    }
+                    }\(raw: closureSuffix)
                 }
                 """,
             ])
@@ -317,7 +345,7 @@ private enum NShiftPluginMemberExpansion {
             """
             @SwiftUI.ViewBuilder
             private func children() -> some SwiftUI.View {
-                childrenAccessor()
+                \(raw: cascaded("childrenAccessor()"))
             }
             """,
             """
@@ -328,7 +356,7 @@ private enum NShiftPluginMemberExpansion {
                     NShiftUI.NShiftNodeView
                 ) -> Content
             ) -> some SwiftUI.View {
-                childrenAccessor(transform: transform)
+                \(raw: cascaded("childrenAccessor(transform: transform)"))
             }
             """,
             """
@@ -338,7 +366,7 @@ private enum NShiftPluginMemberExpansion {
             ) -> some SwiftUI.View {
                 childrenAccessor { _, view in
                     transform(view)
-                }
+                }\(raw: closureSuffix)
             }
             """,
         ])

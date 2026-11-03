@@ -67,9 +67,11 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -79,7 +81,7 @@ struct PrimaryButton: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -89,6 +91,7 @@ struct PrimaryButton: NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(
@@ -171,9 +174,11 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -183,7 +188,7 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -193,6 +198,7 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(
@@ -311,9 +317,11 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -323,7 +331,7 @@ struct PrimaryButton: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -333,6 +341,7 @@ struct PrimaryButton: NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(
@@ -540,9 +549,11 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -552,7 +563,7 @@ struct PrimaryButton: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -562,6 +573,7 @@ struct PrimaryButton: NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(
@@ -712,9 +724,11 @@ struct FormScreen: NShiftPluginContainer {
         )
     }
 
+    private let observedChildrenViewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(observedChildrenViewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -724,7 +738,7 @@ struct FormScreen: NShiftPluginContainer {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(observedChildrenViewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -734,6 +748,7 @@ struct FormScreen: NShiftPluginContainer {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(observedChildrenViewModel)
     }
 
     init?(
@@ -755,6 +770,10 @@ struct FormScreen: NShiftPluginContainer {
             return nil
             }
             self._viewModel = SwiftUI.StateObject(wrappedValue: viewModel)
+            self.observedChildrenViewModel = NShiftUI.NShiftObservedPluginViewModel(base: viewModel)
+            if let engine {
+                NShiftUI.NShiftPluginViewModelCascade.install(viewModel, on: engine)
+            }
         self.resolver = resolver
         self.eventHandler = eventHandler
         self.engine = engine
@@ -822,9 +841,11 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
         )
     }
 
+    private let observedChildrenViewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(observedChildrenViewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -834,7 +855,7 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(observedChildrenViewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -844,6 +865,7 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(observedChildrenViewModel)
     }
 
     init?(
@@ -865,6 +887,10 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
             return nil
             }
             self._viewModel = SwiftUI.StateObject(wrappedValue: viewModel)
+            self.observedChildrenViewModel = NShiftUI.NShiftObservedPluginViewModel(base: viewModel)
+            if let engine {
+                NShiftUI.NShiftPluginViewModelCascade.install(viewModel, on: engine)
+            }
         self.resolver = resolver
         self.eventHandler = eventHandler
         self.engine = engine
@@ -930,9 +956,11 @@ struct FormScreen: NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -942,7 +970,7 @@ struct FormScreen: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -952,6 +980,7 @@ struct FormScreen: NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(
@@ -1152,6 +1181,8 @@ struct Toolbar: NShiftPlugin {
         )
     }
 
+    @SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel
+
     private var slotsAccessor: NShiftUI.NShiftSlotsAccessor<ToolbarSlots> {
         NShiftUI.NShiftSlotsAccessor(
             parentRenderID: renderID,
@@ -1161,7 +1192,7 @@ struct Toolbar: NShiftPlugin {
 
     @SwiftUI.ViewBuilder
     private func slots(_ key: ToolbarSlots) -> some SwiftUI.View {
-        slotsAccessor(key)
+        slotsAccessor(key).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -1172,7 +1203,7 @@ struct Toolbar: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        slotsAccessor(key, transform: transform)
+        slotsAccessor(key, transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -1183,11 +1214,12 @@ struct Toolbar: NShiftPlugin {
         slotsAccessor(key) { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
-        childrenAccessor()
+        childrenAccessor().environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -1197,7 +1229,7 @@ struct Toolbar: NShiftPlugin {
             NShiftUI.NShiftNodeView
         ) -> Content
     ) -> some SwiftUI.View {
-        childrenAccessor(transform: transform)
+        childrenAccessor(transform: transform).environmentObject(viewModel)
     }
 
     @SwiftUI.ViewBuilder
@@ -1207,6 +1239,7 @@ struct Toolbar: NShiftPlugin {
         childrenAccessor { _, view in
             transform(view)
         }
+            .environmentObject(viewModel)
     }
 
     init?(

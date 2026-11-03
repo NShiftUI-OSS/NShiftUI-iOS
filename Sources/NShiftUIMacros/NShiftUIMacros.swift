@@ -16,6 +16,7 @@ import NShiftUIDomain
         named(slotModels),
         named(events),
         named(viewModel),
+        named(observedChildrenViewModel),
         named(resolver),
         named(eventHandler),
         named(engine),
