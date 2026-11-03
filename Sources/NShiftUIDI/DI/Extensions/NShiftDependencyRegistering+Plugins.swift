@@ -9,7 +9,8 @@ public extension NShiftDependencyRegistering {
         factory: @escaping @MainActor (
             NShiftPluginModel,
             any NShiftDependencyContainer,
-            NShiftRenderID
+            NShiftRenderID,
+            (any NShiftPluginViewModel)?
         ) -> Plugin?
     ) where Plugin: NShiftPlugin {
         let registrationName = NShiftVersion.registrationName(
@@ -25,15 +26,20 @@ public extension NShiftDependencyRegistering {
         register(
             NShiftRegisteredPluginView.self,
             name: registrationName,
-            argumentTypes: [NShiftPluginModel.self, NShiftRenderID.self]
+            argumentTypes: [
+                NShiftPluginModel.self,
+                NShiftRenderID.self,
+                NShiftPluginViewModelArgument.self,
+            ]
         ) { arguments in
-            guard arguments.count == 2,
+            guard arguments.count == 3,
                   let model = arguments[0] as? NShiftPluginModel,
-                  let renderID = arguments[1] as? NShiftRenderID else {
+                  let renderID = arguments[1] as? NShiftRenderID,
+                  let parent = arguments[2] as? NShiftPluginViewModelArgument else {
                 return nil
             }
             return MainActor.assumeIsolated {
-                guard let plugin = factory(model, container, renderID) else {
+                guard let plugin = factory(model, container, renderID, parent.viewModel) else {
                     return nil
                 }
                 return NShiftRegisteredPluginView { _, _ in

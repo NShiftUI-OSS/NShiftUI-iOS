@@ -3,6 +3,7 @@ import SwiftUI
 @MainActor
 public protocol NShiftEngine: AnyObject, Sendable {
     var rootID: String { get }
+    var pluginViewModel: (any NShiftPluginViewModel)? { get set }
 
     func handle(
         _ trigger: NShiftTrigger,

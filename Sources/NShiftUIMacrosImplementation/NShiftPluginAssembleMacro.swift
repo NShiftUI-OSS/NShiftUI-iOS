@@ -91,9 +91,10 @@ private enum NShiftPluginAssembleExpansion {
 
             items.append(
                 """
-                container.registerPlugin(\(raw: pluginType).self, container: container) { model, container, renderID in
+                container.registerPlugin(\(raw: pluginType).self, container: container) { model, container, renderID, viewModel in
                     \(raw: pluginType)(
                         model: model,
+                        viewModel: viewModel,
                         resolver: container,
                         eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                         engine: container.resolve(NShiftUIDomain.NShiftEngine.self),

@@ -67,6 +67,7 @@ private struct IntegratedContainer: NShiftPluginContainer {
     )
     let plugin = IntegratedPlugin(
         model: model,
+        viewModel: nil,
         resolver: IntegratedResolver(),
         eventHandler: IntegratedEventHandler(),
         engine: nil
@@ -89,6 +90,7 @@ private struct IntegratedContainer: NShiftPluginContainer {
     )
     let plugin = IntegratedContainer(
         model: model,
+        viewModel: nil,
         resolver: IntegratedResolver(),
         eventHandler: IntegratedEventHandler(),
         engine: nil

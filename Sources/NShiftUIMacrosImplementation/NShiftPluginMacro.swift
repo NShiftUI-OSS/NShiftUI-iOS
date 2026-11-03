@@ -79,25 +79,22 @@ enum NShiftPluginMacroRole: String, CaseIterable {
         if let viewModelType, usesStateObject {
             viewModelInsertion = """
 
-                    guard let viewModel = resolver.resolve(\(viewModelType).self) else {
+                    _ = viewModel
+                    guard let resolvedViewModel = resolver.resolve(\(viewModelType).self) else {
                     return nil
                     }
-                    self._viewModel = SwiftUI.StateObject(wrappedValue: viewModel)
-                    self.observedChildrenViewModel = NShiftUI.NShiftObservedPluginViewModel(base: viewModel)
-                    if let engine {
-                        NShiftUI.NShiftPluginViewModelCascade.install(viewModel, on: engine)
-                    }
+                    self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
+                    engine?.pluginViewModel = resolvedViewModel
             """
-        } else if let viewModelType {
-            viewModelInsertion = "\n        guard let viewModel = resolver.resolve(\(viewModelType).self) else {\n        return nil\n        }\n        self.viewModel = viewModel"
         } else {
-            viewModelInsertion = ""
+            viewModelInsertion = "\n    self.viewModel = viewModel"
         }
 
         return [
             """
             init?(
                 model: NShiftUIDomain.NShiftPluginModel,
+                viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
                 resolver: any NShiftUIDomain.NShiftDependencyResolver,
                 eventHandler: any NShiftUIDomain.NShiftEventHandler,
                 engine: (any NShiftUIDomain.NShiftEngine)?,
@@ -254,10 +251,6 @@ private enum NShiftPluginMemberExpansion {
 
         members.append("private let events: [NShiftUIDomain.AnyNShiftPluginEvent]")
 
-        if role == .plugin, let resolvedViewModelType, structDeclaration.declaresViewModel == false {
-            members.append("private let viewModel: \(raw: resolvedViewModelType)")
-        }
-
         members.append(contentsOf: [
             "private let resolver: any NShiftUIDomain.NShiftDependencyResolver",
             "private let eventHandler: any NShiftUIDomain.NShiftEventHandler",
@@ -275,29 +268,18 @@ private enum NShiftPluginMemberExpansion {
             private var childrenAccessor: NShiftUI.NShiftChildrenAccessor {
                 NShiftUI.NShiftChildrenAccessor(
                     parentRenderID: renderID,
-                    engine: engineTree
+                    engine: engineTree,
+                    viewModel: viewModel
                 )
             }
             """,
         ])
 
-        let publishesCascade = usesStateObject || resolvedViewModelType == nil
-        let cascadeName = usesStateObject ? "observedChildrenViewModel" : "viewModel"
-        if usesStateObject {
+        if role == .plugin, structDeclaration.declaresViewModel == false {
             members.append(
-                "private let observedChildrenViewModel: NShiftUI.NShiftObservedPluginViewModel"
-            )
-        } else if resolvedViewModelType == nil {
-            members.append(
-                "@SwiftUI.EnvironmentObject private var viewModel: NShiftUI.NShiftObservedPluginViewModel"
+                "private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?"
             )
         }
-        let cascaded: (String) -> String = { call in
-            publishesCascade ? "\(call).environmentObject(\(cascadeName))" : call
-        }
-        let closureSuffix = publishesCascade
-            ? "\n        .environmentObject(\(cascadeName))"
-            : ""
 
         if let slotsKeyType {
             members.append(contentsOf: [
@@ -305,14 +287,15 @@ private enum NShiftPluginMemberExpansion {
                 private var slotsAccessor: NShiftUI.NShiftSlotsAccessor<\(raw: slotsKeyType)> {
                     NShiftUI.NShiftSlotsAccessor(
                         parentRenderID: renderID,
-                        engine: engineTree
+                        engine: engineTree,
+                        viewModel: viewModel
                     )
                 }
                 """,
                 """
                 @SwiftUI.ViewBuilder
                 private func slots(_ key: \(raw: slotsKeyType)) -> some SwiftUI.View {
-                    \(raw: cascaded("slotsAccessor(key)"))
+                    slotsAccessor(key)
                 }
                 """,
                 """
@@ -324,7 +307,7 @@ private enum NShiftPluginMemberExpansion {
                         NShiftUI.NShiftNodeView
                     ) -> Content
                 ) -> some SwiftUI.View {
-                    \(raw: cascaded("slotsAccessor(key, transform: transform)"))
+                    slotsAccessor(key, transform: transform)
                 }
                 """,
                 """
@@ -335,7 +318,7 @@ private enum NShiftPluginMemberExpansion {
                 ) -> some SwiftUI.View {
                     slotsAccessor(key) { _, view in
                         transform(view)
-                    }\(raw: closureSuffix)
+                    }
                 }
                 """,
             ])
@@ -345,7 +328,7 @@ private enum NShiftPluginMemberExpansion {
             """
             @SwiftUI.ViewBuilder
             private func children() -> some SwiftUI.View {
-                \(raw: cascaded("childrenAccessor()"))
+                childrenAccessor()
             }
             """,
             """
@@ -356,7 +339,7 @@ private enum NShiftPluginMemberExpansion {
                     NShiftUI.NShiftNodeView
                 ) -> Content
             ) -> some SwiftUI.View {
-                \(raw: cascaded("childrenAccessor(transform: transform)"))
+                childrenAccessor(transform: transform)
             }
             """,
             """
@@ -366,7 +349,7 @@ private enum NShiftPluginMemberExpansion {
             ) -> some SwiftUI.View {
                 childrenAccessor { _, view in
                     transform(view)
-                }\(raw: closureSuffix)
+                }
             }
             """,
         ])

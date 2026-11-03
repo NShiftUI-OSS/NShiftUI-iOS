@@ -26,7 +26,7 @@
   - `@NShiftTokenMetadata` → só **`enum`** (+ `NShiftTokenMetadata`; RawValue `String`).
   - `@NShiftSlotKey` → só **`enum`** (+ `NShiftSlotKey`).
 - `@NShiftPlugin` / `@NShiftEvent`: **MemberMacro** — `name`, `version` (SemVer `MAJOR.MINOR.PATCH`) obrigatórios.
-- `NShiftPlugin` / `NShiftPluginContainer` requerem `init?`: `model`, `resolver`, `eventHandler`, `engine`, `renderID`. **Sem** `viewModel:` / `renderer:`. Autor não declara init.
+- `NShiftPlugin` / `NShiftPluginContainer` requerem `init?`: `model`, `viewModel`, `resolver`, `eventHandler`, `engine`, `renderID`. `viewModel` é `(any NShiftPluginViewModel)?`. Container resolve a concreta no DI. Plugin que não é container recebe a opcional no `init` e o autor faz o cast. Sem `renderer:`. Autor não declara init.
 - Plugin macro: accessors reais `children`/`slots` no autor (`NShiftChildrenAccessor` / `NShiftSlotsAccessor<Key>`). Sem `NShiftContent` / `nshiftMake`.
 - Event `init?`: `(model:resolver:)` — sem `viewModel:` / `slotContent`. Autor não declara init.
 - `NShiftPluginContainer` exige `@StateObject` viewModel tipado resolvido via `resolver.resolve(T.self)` (folha `NShiftPlugin` não).

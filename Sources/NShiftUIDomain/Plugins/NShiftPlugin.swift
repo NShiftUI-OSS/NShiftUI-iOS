@@ -7,6 +7,7 @@ public protocol NShiftPlugin: View {
 
     init?(
         model: NShiftPluginModel,
+        viewModel: (any NShiftPluginViewModel)?,
         resolver: any NShiftDependencyResolver,
         eventHandler: any NShiftEventHandler,
         engine: (any NShiftEngine)?,

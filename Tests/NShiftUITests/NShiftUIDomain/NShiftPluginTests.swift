@@ -9,12 +9,13 @@ private struct TestViewPlugin: NShiftPluginWithMetadata {
 
     init?(
         model: NShiftPluginModel,
+        viewModel: (any NShiftPluginViewModel)?,
         resolver: any NShiftDependencyResolver,
         eventHandler: any NShiftEventHandler,
         engine: (any NShiftEngine)?,
         renderID: NShiftRenderID
     ) {
-        _ = (model, resolver, eventHandler, engine, renderID)
+        _ = (model, viewModel, resolver, eventHandler, engine, renderID)
     }
 
     init() {}
@@ -39,12 +40,13 @@ private struct TestViewPluginContainer: NShiftPluginContainer, NShiftPluginWithM
 
     init?(
         model: NShiftPluginModel,
+        viewModel: (any NShiftPluginViewModel)?,
         resolver: any NShiftDependencyResolver,
         eventHandler: any NShiftEventHandler,
         engine: (any NShiftEngine)?,
         renderID: NShiftRenderID
     ) {
-        _ = (model, resolver, eventHandler, engine, renderID)
+        _ = (model, viewModel, resolver, eventHandler, engine, renderID)
     }
 
     init() {}

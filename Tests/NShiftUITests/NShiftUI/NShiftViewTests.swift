@@ -195,6 +195,7 @@ private final class NShiftPluginContainerRegistrationTokenProbe {
     }
     let plugin = HomeScreenPlugin(
         model: model,
+        viewModel: nil,
         resolver: registry,
         eventHandler: DummyContainerEventHandler(),
         engine: nil
@@ -266,6 +267,7 @@ private final class NShiftPluginContainerRegistrationTokenProbe {
 @MainActor
 private final class BareEngine: NShiftEngine {
     let rootID: String
+    var pluginViewModel: (any NShiftPluginViewModel)?
 
     init(rootID: String) {
         self.rootID = rootID

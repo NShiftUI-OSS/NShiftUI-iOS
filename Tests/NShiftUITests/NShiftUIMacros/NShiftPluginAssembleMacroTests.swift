@@ -24,9 +24,10 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
-                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID in
+                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
                         PrimaryButton(
                             model: model,
+                            viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                             engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
@@ -54,18 +55,20 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
-                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID in
+                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
                         PrimaryButton(
                             model: model,
+                            viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                             engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
-                    container.registerPlugin(IconButton.self, container: container) { model, container, renderID in
+                    container.registerPlugin(IconButton.self, container: container) { model, container, renderID, viewModel in
                         IconButton(
                             model: model,
+                            viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                             engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
@@ -96,9 +99,10 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
-                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID in
+                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
                         PrimaryButton(
                             model: model,
+                            viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                             engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
@@ -129,9 +133,10 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct ButtonModuleAssembly: NShiftUIDI.NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
-                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID in
+                    container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
                         PrimaryButton(
                             model: model,
+                            viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
                             engine: container.resolve(NShiftUIDomain.NShiftEngine.self),

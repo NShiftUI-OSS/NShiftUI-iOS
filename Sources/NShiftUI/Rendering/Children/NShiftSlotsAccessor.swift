@@ -5,13 +5,16 @@ import SwiftUI
 public struct NShiftSlotsAccessor<Key: NShiftSlotKey> {
     private let parentRenderID: NShiftRenderID
     private let engine: any NShiftEngineTree
+    private let viewModel: (any NShiftPluginViewModel)?
 
     public init(
         parentRenderID: NShiftRenderID,
-        engine: any NShiftEngineTree
+        engine: any NShiftEngineTree,
+        viewModel: (any NShiftPluginViewModel)?
     ) {
         self.parentRenderID = parentRenderID
         self.engine = engine
+        self.viewModel = viewModel
     }
 
     @ViewBuilder
@@ -34,7 +37,11 @@ public struct NShiftSlotsAccessor<Key: NShiftSlotKey> {
             ForEach(nodes, id: \.renderId) { child in
                 transform(
                     child.model,
-                    NShiftNodeView(node: child, engine: engine)
+                    NShiftNodeView(
+                        node: child,
+                        engine: engine,
+                        viewModel: viewModel
+                    )
                 )
             }
         }

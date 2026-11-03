@@ -13,6 +13,8 @@ open class NShiftDefaultEngine: NShiftEngineTree {
     private var nodesByRenderID: [NShiftRenderID: NShiftPluginNode] = [:]
     private var eventsByID: [String: NShiftEventLocation] = [:]
 
+    public var pluginViewModel: (any NShiftPluginViewModel)?
+
     public var rootID: String {
         root.model.id ?? root.renderId.rawValue
     }
@@ -28,8 +30,15 @@ open class NShiftDefaultEngine: NShiftEngineTree {
         indexSubtree(root)
     }
 
-    public func makeView(for node: NShiftPluginNode) -> AnyView? {
-        pluginStore.resolve(node.model, renderID: node.renderId)
+    public func makeView(
+        for node: NShiftPluginNode,
+        viewModel: (any NShiftPluginViewModel)?
+    ) -> AnyView? {
+        pluginStore.resolve(
+            node.model,
+            renderID: node.renderId,
+            viewModel: viewModel
+        )
     }
 
     public func node(withID id: String) -> NShiftPluginNode? {
