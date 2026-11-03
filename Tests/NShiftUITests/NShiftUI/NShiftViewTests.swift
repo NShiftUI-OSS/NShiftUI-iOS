@@ -195,7 +195,6 @@ private final class NShiftPluginContainerRegistrationTokenProbe {
     }
     let plugin = HomeScreenPlugin(
         model: model,
-        viewModel: nil,
         resolver: registry,
         eventHandler: DummyContainerEventHandler(),
         engine: nil

@@ -68,7 +68,7 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
@@ -116,9 +116,47 @@ struct PrimaryButton: NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithMetadata {
+}
+
+extension PrimaryButton: NShiftPluginWithViewModel {
 }
 """,
             macros: nShiftPluginTestMacros
@@ -177,7 +215,7 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
@@ -225,9 +263,47 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithMetadata {
+}
+
+extension PrimaryButton: NShiftPluginWithViewModel {
 }
 """,
             macros: nShiftPluginTestMacros
@@ -322,7 +398,7 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
@@ -370,9 +446,47 @@ struct PrimaryButton: NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithMetadata {
+}
+
+extension PrimaryButton: NShiftPluginWithViewModel {
 }
 """,
             diagnostics: [
@@ -556,7 +670,7 @@ struct PrimaryButton: NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
@@ -601,6 +715,44 @@ struct PrimaryButton: NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+}
+
+extension PrimaryButton: NShiftPluginWithViewModel {
 }
 """,
             macros: nShiftPluginTestMacros
@@ -759,7 +911,6 @@ struct FormScreen: NShiftPluginContainer {
 
     init?(
         model: NShiftUIDomain.NShiftPluginModel,
-        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
         resolver: any NShiftUIDomain.NShiftDependencyResolver,
         eventHandler: any NShiftUIDomain.NShiftEventHandler,
         engine: (any NShiftUIDomain.NShiftEngine)?,
@@ -773,12 +924,11 @@ struct FormScreen: NShiftPluginContainer {
         self.pluginChildren = model.children
         self.slots = model.slots
         self.events = model.events
-            _ = viewModel
-            guard let resolvedViewModel = resolver.resolve(FormScreenViewModel.self) else {
+        guard let resolvedViewModel = resolver.resolve(FormScreenViewModel.self) else {
             return nil
-            }
-            self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
-            engine?.pluginViewModel = resolvedViewModel
+        }
+        self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
+        engine?.pluginViewModel = resolvedViewModel
         self.resolver = resolver
         self.eventHandler = eventHandler
         self.engine = engine
@@ -873,7 +1023,6 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
 
     init?(
         model: NShiftUIDomain.NShiftPluginModel,
-        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
         resolver: any NShiftUIDomain.NShiftDependencyResolver,
         eventHandler: any NShiftUIDomain.NShiftEventHandler,
         engine: (any NShiftUIDomain.NShiftEngine)?,
@@ -887,12 +1036,11 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
         self.pluginChildren = model.children
         self.slots = model.slots
         self.events = model.events
-            _ = viewModel
-            guard let resolvedViewModel = resolver.resolve(FormScreenViewModel.self) else {
+        guard let resolvedViewModel = resolver.resolve(FormScreenViewModel.self) else {
             return nil
-            }
-            self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
-            engine?.pluginViewModel = resolvedViewModel
+        }
+        self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
+        engine?.pluginViewModel = resolvedViewModel
         self.resolver = resolver
         self.eventHandler = eventHandler
         self.engine = engine
@@ -959,7 +1107,7 @@ struct FormScreen: NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     @SwiftUI.ViewBuilder
     private func children() -> some SwiftUI.View {
@@ -1007,9 +1155,47 @@ struct FormScreen: NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
 }
 
 extension FormScreen: NShiftPluginWithMetadata {
+}
+
+extension FormScreen: NShiftPluginWithViewModel {
 }
 """,
             macros: nShiftPluginTestMacros
@@ -1186,7 +1372,7 @@ struct Toolbar: NShiftPlugin {
         )
     }
 
-    private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+    let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
 
     private var slotsAccessor: NShiftUI.NShiftSlotsAccessor<ToolbarSlots> {
         NShiftUI.NShiftSlotsAccessor(
@@ -1268,9 +1454,47 @@ struct Toolbar: NShiftPlugin {
         self.engine = engine
         self.renderID = renderID
     }
+
+    init?(
+        model: NShiftUIDomain.NShiftPluginModel,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID = .root
+    ) {
+        self.init(
+            model: model,
+            viewModel: nil,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
+
+    static func make(
+        model: NShiftUIDomain.NShiftPluginModel,
+        viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+        resolver: any NShiftUIDomain.NShiftDependencyResolver,
+        eventHandler: any NShiftUIDomain.NShiftEventHandler,
+        engine: (any NShiftUIDomain.NShiftEngine)?,
+        renderID: NShiftUIDomain.NShiftRenderID
+    ) -> Self? {
+        Self(
+            model: model,
+            viewModel: viewModel,
+            resolver: resolver,
+            eventHandler: eventHandler,
+            engine: engine,
+            renderID: renderID
+        )
+    }
 }
 
 extension Toolbar: NShiftPluginWithMetadata {
+}
+
+extension Toolbar: NShiftPluginWithViewModel {
 }
 """,
             macros: nShiftPluginTestMacros

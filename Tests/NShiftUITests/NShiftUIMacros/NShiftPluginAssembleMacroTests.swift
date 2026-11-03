@@ -25,7 +25,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
                     container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
-                        PrimaryButton(
+                        PrimaryButton.make(
                             model: model,
                             viewModel: viewModel,
                             resolver: container,
@@ -56,7 +56,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
                     container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
-                        PrimaryButton(
+                        PrimaryButton.make(
                             model: model,
                             viewModel: viewModel,
                             resolver: container,
@@ -66,7 +66,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                         )
                     }
                     container.registerPlugin(IconButton.self, container: container) { model, container, renderID, viewModel in
-                        IconButton(
+                        IconButton.make(
                             model: model,
                             viewModel: viewModel,
                             resolver: container,
@@ -100,7 +100,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             struct ButtonModuleAssembly: NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
                     container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
-                        PrimaryButton(
+                        PrimaryButton.make(
                             model: model,
                             viewModel: viewModel,
                             resolver: container,
@@ -134,7 +134,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
             struct ButtonModuleAssembly: NShiftUIDI.NShiftDependencyAssembly {
                 func assemblePlugins(in container: any NShiftDependencyContainer) {
                     container.registerPlugin(PrimaryButton.self, container: container) { model, container, renderID, viewModel in
-                        PrimaryButton(
+                        PrimaryButton.make(
                             model: model,
                             viewModel: viewModel,
                             resolver: container,

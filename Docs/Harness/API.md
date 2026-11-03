@@ -48,7 +48,8 @@ Macro de plugin gera (entre outros):
 - storage (`pluginChildren`, slots tipados ou untyped, `renderID`, …);
 - accessors reais `children()` / `slots(key)` (+ overloads ViewBuilder) no tipo do autor;
 - init canónico `init?` **sempre** gerado; o autor **não** declara init (diagnóstico).
-- `NShiftPlugin` / `NShiftPluginContainer`: `init?(model:viewModel:resolver:eventHandler:engine:renderID:)`. `viewModel: (any NShiftPluginViewModel)?`.
+- `NShiftPlugin` / `NShiftPluginContainer`: `init?(model:resolver:eventHandler:engine:renderID:)`.
+- `NShiftPluginWithViewModel`: o mesmo init mais `viewModel: (any NShiftPluginViewModel)?`. `optionalViewModel(as:)` faz o cast opcional. O container não conforma esse protocol.
 - ViewModel só se o tipo declara: `resolver.resolve(T.self)` (container `@StateObject`). Falha → `nil`.
 - Metadata tipada: `guard let … unwrap` (acaba o `?? T()`). Falha → `nil`.
 - Event: `init?(model:resolver:)`. Sem `viewModel:`.

@@ -75,19 +75,33 @@ enum NShiftPluginMacroRole: String, CaseIterable {
             metadataBlock = "self.metadata = model.metadata"
         }
 
-        let viewModelInsertion: String
         if let viewModelType, usesStateObject {
-            viewModelInsertion = """
-
-                    _ = viewModel
-                    guard let resolvedViewModel = resolver.resolve(\(viewModelType).self) else {
-                    return nil
+            return [
+                """
+                init?(
+                    model: NShiftUIDomain.NShiftPluginModel,
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    eventHandler: any NShiftUIDomain.NShiftEventHandler,
+                    engine: (any NShiftUIDomain.NShiftEngine)?,
+                    renderID: NShiftUIDomain.NShiftRenderID = .root
+                ) {
+                    \(raw: metadataBlock)
+                    self.style = model.style
+                    self.pluginChildren = model.children
+                    \(raw: slotsAssignment)
+                    self.events = model.events
+                    guard let resolvedViewModel = resolver.resolve(\(raw: viewModelType).self) else {
+                        return nil
                     }
                     self._viewModel = SwiftUI.StateObject(wrappedValue: resolvedViewModel)
                     engine?.pluginViewModel = resolvedViewModel
-            """
-        } else {
-            viewModelInsertion = "\n    self.viewModel = viewModel"
+                    self.resolver = resolver
+                    self.eventHandler = eventHandler
+                    self.engine = engine
+                    self.renderID = renderID
+                }
+                """,
+            ]
         }
 
         return [
@@ -104,11 +118,49 @@ enum NShiftPluginMacroRole: String, CaseIterable {
                 self.style = model.style
                 self.pluginChildren = model.children
                 \(raw: slotsAssignment)
-                self.events = model.events\(raw: viewModelInsertion)
+                self.events = model.events
+                self.viewModel = viewModel
                 self.resolver = resolver
                 self.eventHandler = eventHandler
                 self.engine = engine
                 self.renderID = renderID
+            }
+            """,
+            """
+            init?(
+                model: NShiftUIDomain.NShiftPluginModel,
+                resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                eventHandler: any NShiftUIDomain.NShiftEventHandler,
+                engine: (any NShiftUIDomain.NShiftEngine)?,
+                renderID: NShiftUIDomain.NShiftRenderID = .root
+            ) {
+                self.init(
+                    model: model,
+                    viewModel: nil,
+                    resolver: resolver,
+                    eventHandler: eventHandler,
+                    engine: engine,
+                    renderID: renderID
+                )
+            }
+            """,
+            """
+            static func make(
+                model: NShiftUIDomain.NShiftPluginModel,
+                viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?,
+                resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                eventHandler: any NShiftUIDomain.NShiftEventHandler,
+                engine: (any NShiftUIDomain.NShiftEngine)?,
+                renderID: NShiftUIDomain.NShiftRenderID
+            ) -> Self? {
+                Self(
+                    model: model,
+                    viewModel: viewModel,
+                    resolver: resolver,
+                    eventHandler: eventHandler,
+                    engine: engine,
+                    renderID: renderID
+                )
             }
             """,
         ]
@@ -277,7 +329,7 @@ private enum NShiftPluginMemberExpansion {
 
         if role == .plugin, structDeclaration.declaresViewModel == false {
             members.append(
-                "private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?"
+                "let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?"
             )
         }
 
@@ -459,9 +511,13 @@ private enum NShiftPluginExtensionExpansion {
         guard let structDeclaration = declaration.as(StructDeclSyntax.self),
               let role = structDeclaration.nShiftPluginRole,
               let arguments = node.argumentList,
-              case .type = NShiftPluginMemberExpansion.metadataType(from: arguments),
               NShiftPluginMemberExpansion.pluginName(from: arguments) != nil,
               NShiftPluginMemberExpansion.pluginVersion(from: arguments) != nil else {
+            return []
+        }
+
+        let metadataArgument = NShiftPluginMemberExpansion.metadataType(from: arguments)
+        if case .invalid = metadataArgument {
             return []
         }
 
@@ -479,14 +535,28 @@ private enum NShiftPluginExtensionExpansion {
         }
 
         let typeName = type.trimmedDescription
-        return [
-            try ExtensionDeclSyntax(
-                """
-                extension \(raw: typeName): NShiftPluginWithMetadata {
-                }
-                """
-            ),
-        ]
+        var extensions: [ExtensionDeclSyntax] = []
+        if case .type = metadataArgument {
+            extensions.append(
+                try ExtensionDeclSyntax(
+                    """
+                    extension \(raw: typeName): NShiftPluginWithMetadata {
+                    }
+                    """
+                )
+            )
+        }
+        if case .plugin = role {
+            extensions.append(
+                try ExtensionDeclSyntax(
+                    """
+                    extension \(raw: typeName): NShiftPluginWithViewModel {
+                    }
+                    """
+                )
+            )
+        }
+        return extensions
     }
 }
 

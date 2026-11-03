@@ -32,7 +32,7 @@ Events/
   NShiftEventName.swift
   TypeErasure/AnyNShiftPluginEvent.swift
 Plugins/
-  NShiftPlugin.swift                # View + init?(model:viewModel:resolver:eventHandler:engine:renderID:)
+  NShiftPlugin.swift                # NShiftPlugin init?(model:resolver:eventHandler:engine:renderID:); NShiftPluginWithViewModel adds viewModel
   NShiftPluginContainer.swift
   NShiftPluginModel.swift           # id: String?; name/metadata/style/children/slots/events
   NShiftPluginName.swift

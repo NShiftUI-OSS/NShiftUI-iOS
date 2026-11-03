@@ -92,7 +92,7 @@ private enum NShiftPluginAssembleExpansion {
             items.append(
                 """
                 container.registerPlugin(\(raw: pluginType).self, container: container) { model, container, renderID, viewModel in
-                    \(raw: pluginType)(
+                    \(raw: pluginType).make(
                         model: model,
                         viewModel: viewModel,
                         resolver: container,

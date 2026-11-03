@@ -24,9 +24,10 @@ import NShiftUIDomain
         named(childrenAccessor),
         named(slotsAccessor),
         named(children),
+        named(make),
         named(init)
 )
-@attached(extension, conformances: NShiftPluginWithMetadata)
+@attached(extension, conformances: NShiftPluginWithMetadata, NShiftPluginWithViewModel)
 public macro NShiftPlugin(
     name: NShiftPluginName,
     version: NShiftVersion,
