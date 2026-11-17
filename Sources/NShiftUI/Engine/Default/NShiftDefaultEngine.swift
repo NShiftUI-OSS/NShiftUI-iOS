@@ -2,6 +2,26 @@ import NShiftUIDI
 import NShiftUIDomain
 import SwiftUI
 
+public enum NShiftRenderingEngine {
+    private static let key = "nshift.rendering-engine"
+
+    public static var current: (any NShiftEngine)? {
+        Thread.current.threadDictionary[key] as? any NShiftEngine
+    }
+
+    public static func perform<T>(
+        _ engine: any NShiftEngine,
+        _ operation: () throws -> T
+    ) rethrows -> T {
+        let previous = Thread.current.threadDictionary[key]
+        Thread.current.threadDictionary[key] = engine as Any
+        defer {
+            Thread.current.threadDictionary[key] = previous
+        }
+        return try operation()
+    }
+}
+
 @MainActor
 open class NShiftDefaultEngine: NShiftEngineTree {
     public let root: NShiftPluginNode
@@ -34,11 +54,13 @@ open class NShiftDefaultEngine: NShiftEngineTree {
         for node: NShiftPluginNode,
         viewModel: (any NShiftPluginViewModel)?
     ) -> AnyView? {
-        pluginStore.resolve(
-            node.model,
-            renderID: node.renderId,
-            viewModel: viewModel
-        )
+        NShiftRenderingEngine.perform(self) {
+            pluginStore.resolve(
+                node.model,
+                renderID: node.renderId,
+                viewModel: viewModel
+            )
+        }
     }
 
     public func node(withID id: String) -> NShiftPluginNode? {
