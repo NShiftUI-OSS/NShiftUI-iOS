@@ -17,12 +17,14 @@ private final class IntegratedContainerViewModel: NShiftPluginViewModel {
 private final class IntegratedEventHandler: NShiftEventHandler {
     func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {}
 
     func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {}
 }
 

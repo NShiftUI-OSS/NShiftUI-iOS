@@ -25,12 +25,14 @@ private enum EventActionFailure: Error, CustomStringConvertible {
 private final class StoreNoOpEventHandler: NShiftEventHandler {
     func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {}
 
     func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {}
 }
 
@@ -57,13 +59,13 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
     registry.register(NShiftEventAction.self, name: "ShowToast@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    await handler.handle("onTap", events: pluginEvents)
+    await handler.handle("onTap", events: pluginEvents, viewModel: nil)
 
     #expect(await recorder.values == ["ShowToast"])
 }
@@ -75,7 +77,7 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let pluginEvents = [AnyNShiftPluginEvent(event)]
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    await handler.handle("onTap", events: pluginEvents)
+    await handler.handle("onTap", events: pluginEvents, viewModel: nil)
 
     #expect(eventStore.resolve("onTap", events: pluginEvents) == [event])
 }
@@ -88,7 +90,7 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
     do {
-        try await handler.handleThrowing("onTap", events: pluginEvents)
+        try await handler.handleThrowing("onTap", events: pluginEvents, viewModel: nil)
         #expect(Bool(false), "Expected missing action to throw.")
     } catch {
         #expect(error == NShiftEventHandlingError(event: event, reason: .actionNotFound))
@@ -102,14 +104,14 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
     registry.register(NShiftEventAction.self, name: "ShowToast@1.0.0") {
-        NShiftEventAction(throwing: { _ in
+        NShiftEventAction(throwing: { _, _ in
             throw EventActionFailure.rejected
         })
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
     do {
-        try await handler.handleThrowing("onTap", events: pluginEvents)
+        try await handler.handleThrowing("onTap", events: pluginEvents, viewModel: nil)
         #expect(Bool(false), "Expected failing action to throw.")
     } catch {
         #expect(error == NShiftEventHandlingError(event: event, reason: .actionFailed("rejected")))
@@ -124,13 +126,13 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
     registry.register(NShiftEventAction.self, name: "ShowToast@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    try await handler.handleThrowing("onTap", events: pluginEvents)
+    try await handler.handleThrowing("onTap", events: pluginEvents, viewModel: nil)
 
     #expect(await recorder.values == ["ShowToast"])
 }
@@ -142,18 +144,18 @@ private final class StoreNoOpEventHandler: NShiftEventHandler {
     let attachedEvent = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(attachedEvent)]
     registry.register(NShiftEventAction.self, name: "ShowToast@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
     registry.register(NShiftEventAction.self, name: "Navigate@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    await handler.handle("onTap", events: pluginEvents)
+    await handler.handle("onTap", events: pluginEvents, viewModel: nil)
 
     #expect(await recorder.values == ["ShowToast"])
 }
@@ -182,9 +184,10 @@ private struct StoreCapturingShowToastEvent: NShiftEvent {
 
     init?(
         model: NShiftEventModel,
-        resolver: any NShiftDependencyResolver
+        resolver: any NShiftDependencyResolver,
+        viewModel: (any NShiftPluginViewModel)?
     ) {
-        guard let viewModel = resolver.resolve(StoreEventViewModel.self) else {
+        guard let viewModel = viewModel as? StoreEventViewModel else {
             return nil
         }
         self.viewModel = viewModel
@@ -203,13 +206,13 @@ private struct StoreCapturingShowToastEvent: NShiftEvent {
     let eventStore = NShiftDependencyEventStore()
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
-    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel in
-        StoreCapturingShowToastEvent(model: eventModel, resolver: registry)
+    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel, viewModel in
+        StoreCapturingShowToastEvent(model: eventModel, resolver: registry, viewModel: viewModel)
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
     do {
-        try await handler.handleThrowing("onTap", events: pluginEvents)
+        try await handler.handleThrowing("onTap", events: pluginEvents, viewModel: nil)
         #expect(Bool(false), "Expected init? failure to throw.")
     } catch {
         #expect(error == NShiftEventHandlingError(event: event, reason: .initializationFailed))
@@ -227,35 +230,33 @@ private struct StoreCapturingShowToastEvent: NShiftEvent {
     registry.register(ViewModelRecorder.self) { recorder }
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
-    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel in
-        StoreCapturingShowToastEvent(model: eventModel, resolver: registry)
+    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel, viewModel in
+        StoreCapturingShowToastEvent(model: eventModel, resolver: registry, viewModel: viewModel)
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    await handler.handle("onTap", events: pluginEvents)
+    await handler.handle("onTap", events: pluginEvents, viewModel: nil)
 
     #expect(await recorder.capturedViewModel == false)
 }
 
-@Test func registerEventResolvesViewModelFromContainer() async {
+@Test func registerEventPassesViewModelIntoEventInit() async {
     let registry = NShiftDependencyRegistry()
     let eventStore = NShiftDependencyEventStore()
     let recorder = ViewModelRecorder()
     registry.register(ViewModelRecorder.self) { recorder }
-    registry.register(StoreEventViewModel.self) {
-        StoreEventViewModel()
-    }
     let event = NShiftEventModel(id: "toast", name: "ShowToast", version: "1.0.0", trigger: "onTap")
     let pluginEvents = [AnyNShiftPluginEvent(event)]
-    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel in
+    registry.registerEvent(StoreCapturingShowToastEvent.self, container: registry) { eventModel, viewModel in
         StoreCapturingShowToastEvent(
             model: eventModel,
-            resolver: registry
+            resolver: registry,
+            viewModel: viewModel
         )
     }
     let handler = NShiftDependencyEventHandler(eventStore: eventStore, resolver: registry)
 
-    await handler.handle("onTap", events: pluginEvents)
+    await handler.handle("onTap", events: pluginEvents, viewModel: StoreEventViewModel())
 
     #expect(await recorder.capturedViewModel)
 }

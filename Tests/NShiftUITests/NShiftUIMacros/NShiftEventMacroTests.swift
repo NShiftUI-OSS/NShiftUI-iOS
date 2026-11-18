@@ -38,6 +38,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 private let events: [NShiftUIDomain.AnyNShiftPluginEvent]
 
+                private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+
                 private let eventHandler: any NShiftUIDomain.NShiftEventHandler
 
                 private let resolver: any NShiftUIDomain.NShiftDependencyResolver
@@ -46,7 +48,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 init?(
                     model: NShiftUIDomain.NShiftEventModel,
-                    resolver: any NShiftUIDomain.NShiftDependencyResolver
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
                 ) {
                     guard let metadata = model.metadata?.unwrap(as: ShowToastMetadata.self) else {
                         return nil
@@ -54,6 +57,7 @@ final class NShiftEventMacroTests: XCTestCase {
                         self.metadata = metadata
                     self.slots = model.slots
                     self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                    self.viewModel = viewModel
                     self.resolver = resolver
                     self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                     self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)
@@ -95,6 +99,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 private let events: [NShiftUIDomain.AnyNShiftPluginEvent]
 
+                private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+
                 private let eventHandler: any NShiftUIDomain.NShiftEventHandler
 
                 private let resolver: any NShiftUIDomain.NShiftDependencyResolver
@@ -103,7 +109,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 init?(
                     model: NShiftUIDomain.NShiftEventModel,
-                    resolver: any NShiftUIDomain.NShiftDependencyResolver
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
                 ) {
                     guard let metadata = model.metadata?.unwrap(as: NavigateMetadata.self) else {
                         return nil
@@ -111,6 +118,7 @@ final class NShiftEventMacroTests: XCTestCase {
                         self.metadata = metadata
                     self.slots = model.slots
                     self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                    self.viewModel = viewModel
                     self.resolver = resolver
                     self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                     self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)
@@ -176,6 +184,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 private let events: [NShiftUIDomain.AnyNShiftPluginEvent]
 
+                private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+
                 private let eventHandler: any NShiftUIDomain.NShiftEventHandler
 
                 private let resolver: any NShiftUIDomain.NShiftDependencyResolver
@@ -184,7 +194,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 init?(
                     model: NShiftUIDomain.NShiftEventModel,
-                    resolver: any NShiftUIDomain.NShiftDependencyResolver
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
                 ) {
                     guard let metadata = model.metadata?.unwrap(as: ShowToastMetadata.self) else {
                         return nil
@@ -192,6 +203,7 @@ final class NShiftEventMacroTests: XCTestCase {
                         self.metadata = metadata
                     self.slots = model.slots
                     self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                    self.viewModel = viewModel
                     self.resolver = resolver
                     self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                     self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)
@@ -286,6 +298,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 private let events: [NShiftUIDomain.AnyNShiftPluginEvent]
 
+                private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+
                 private let eventHandler: any NShiftUIDomain.NShiftEventHandler
 
                 private let resolver: any NShiftUIDomain.NShiftDependencyResolver
@@ -294,11 +308,13 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 init?(
                     model: NShiftUIDomain.NShiftEventModel,
-                    resolver: any NShiftUIDomain.NShiftDependencyResolver
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
                 ) {
                     self.metadata = model.metadata
                     self.slots = model.slots
                     self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                    self.viewModel = viewModel
                     self.resolver = resolver
                     self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                     self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)
@@ -520,6 +536,8 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 private let events: [NShiftUIDomain.AnyNShiftPluginEvent]
 
+                private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
+
                 private let eventHandler: any NShiftUIDomain.NShiftEventHandler
 
                 private let resolver: any NShiftUIDomain.NShiftDependencyResolver
@@ -528,11 +546,13 @@ final class NShiftEventMacroTests: XCTestCase {
 
                 init?(
                     model: NShiftUIDomain.NShiftEventModel,
-                    resolver: any NShiftUIDomain.NShiftDependencyResolver
+                    resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                    viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
                 ) {
                     self.metadata = model.metadata
                     self.slotsStorage = model.slots
                     self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                    self.viewModel = viewModel
                     self.resolver = resolver
                     self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                     self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)

@@ -24,10 +24,11 @@ final class NShiftEventAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct EventModuleAssembly: NShiftDependencyAssembly {
                 func assembleEvents(in container: any NShiftDependencyContainer) {
-                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel in
+                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel, viewModel in
                         ShowToastEvent(
                             model: eventModel,
-                            resolver: container
+                            resolver: container,
+                            viewModel: viewModel
                         )
                     }
                 }
@@ -51,16 +52,18 @@ final class NShiftEventAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct EventModuleAssembly: NShiftDependencyAssembly {
                 func assembleEvents(in container: any NShiftDependencyContainer) {
-                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel in
+                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel, viewModel in
                         ShowToastEvent(
                             model: eventModel,
-                            resolver: container
+                            resolver: container,
+                            viewModel: viewModel
                         )
                     }
-                    container.registerEvent(NavigateEvent.self, container: container) { eventModel in
+                    container.registerEvent(NavigateEvent.self, container: container) { eventModel, viewModel in
                         NavigateEvent(
                             model: eventModel,
-                            resolver: container
+                            resolver: container,
+                            viewModel: viewModel
                         )
                     }
                 }
@@ -84,10 +87,11 @@ final class NShiftEventAssembleMacroTests: XCTestCase {
             expandedSource: """
             struct EventModuleAssembly: NShiftUIDI.NShiftDependencyAssembly {
                 func assembleEvents(in container: any NShiftDependencyContainer) {
-                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel in
+                    container.registerEvent(ShowToastEvent.self, container: container) { eventModel, viewModel in
                         ShowToastEvent(
                             model: eventModel,
-                            resolver: container
+                            resolver: container,
+                            viewModel: viewModel
                         )
                     }
                 }

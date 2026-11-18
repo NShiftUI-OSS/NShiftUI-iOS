@@ -91,10 +91,11 @@ private enum NShiftEventAssembleExpansion {
 
             items.append(
                 """
-                container.registerEvent(\(raw: eventType).self, container: container) { eventModel in
+                container.registerEvent(\(raw: eventType).self, container: container) { eventModel, viewModel in
                     \(raw: eventType)(
                         model: eventModel,
-                        resolver: container
+                        resolver: container,
+                        viewModel: viewModel
                     )
                 }
                 """

@@ -151,12 +151,14 @@ private struct HomeScreenAssemblyWithoutViewModel: NShiftDependencyAssembly {
 private final class DummyContainerEventHandler: NShiftEventHandler {
     func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {}
 
     func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {}
 }
 

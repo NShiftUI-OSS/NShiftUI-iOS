@@ -13,12 +13,14 @@ private struct EngineNewMetadata: NShiftMetadata {
 private final class NoopEventHandler: NShiftEventHandler {
     func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {}
 
     func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {}
 }
 
@@ -198,7 +200,7 @@ private func makeEngine(
     let registry = NShiftDependencyRegistry()
     let recorder = EngineEventRecorder()
     registry.register(NShiftEventAction.self, name: "Track@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
@@ -411,7 +413,7 @@ private func makeEngine(
     let recorder = EngineEventRecorder()
     let registry = NShiftDependencyRegistry()
     registry.register(NShiftEventAction.self, name: "Track@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }
@@ -433,7 +435,7 @@ private func makeEngine(
     let registry = NShiftDependencyRegistry()
     let recorder = EngineEventRecorder()
     registry.register(NShiftEventAction.self, name: "Track@1.0.0") {
-        NShiftEventAction { event in
+        NShiftEventAction { event, _ in
             await recorder.record(event.name.rawValue)
         }
     }

@@ -4,7 +4,8 @@ public protocol NShiftEvent {
 
     init?(
         model: NShiftEventModel,
-        resolver: any NShiftDependencyResolver
+        resolver: any NShiftDependencyResolver,
+        viewModel: (any NShiftPluginViewModel)?
     )
 
     func execute() async throws

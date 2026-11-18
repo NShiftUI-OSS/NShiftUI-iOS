@@ -149,8 +149,8 @@ private enum NShiftEventMemberExpansion {
         members.append("private let events: [NShiftUIDomain.AnyNShiftPluginEvent]")
 
         let declaredViewModelType = structDeclaration.declaredViewModelType
-        if let declaredViewModelType, structDeclaration.declaresViewModel == false {
-            members.append("private let viewModel: \(raw: declaredViewModelType)")
+        if declaredViewModelType == nil {
+            members.append("private let viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?")
         }
 
         members.append(contentsOf: [
@@ -166,11 +166,16 @@ private enum NShiftEventMemberExpansion {
             metadataBlock = "self.metadata = model.metadata"
         }
 
-        let viewModelInsertion: String
+        let viewModelLine: String
         if let declaredViewModelType {
-            viewModelInsertion = "\n        guard let viewModel = resolver.resolve(\(declaredViewModelType).self) else {\n        return nil\n        }\n        self.viewModel = viewModel"
+            if declaredViewModelType.hasSuffix("?") {
+                let base = String(declaredViewModelType.dropLast())
+                viewModelLine = "self.viewModel = viewModel as? \(base)"
+            } else {
+                viewModelLine = "guard let viewModel = viewModel as? \(declaredViewModelType) else { return nil }\n        self.viewModel = viewModel"
+            }
         } else {
-            viewModelInsertion = ""
+            viewModelLine = "self.viewModel = viewModel"
         }
 
         if structDeclaration.hasInitializer {
@@ -189,11 +194,13 @@ private enum NShiftEventMemberExpansion {
         let initializer = """
             init?(
                 model: NShiftUIDomain.NShiftEventModel,
-                resolver: any NShiftUIDomain.NShiftDependencyResolver
+                resolver: any NShiftUIDomain.NShiftDependencyResolver,
+                viewModel: (any NShiftUIDomain.NShiftPluginViewModel)?
             ) {
                 \(metadataBlock)
                 \(slotsAssignment)
-                self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)\(viewModelInsertion)
+                self.events = model.events.map(NShiftUIDomain.AnyNShiftPluginEvent.init)
+                \(viewModelLine)
                 self.resolver = resolver
                 self.eventHandler = resolver.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self)
                 self.engine = resolver.resolve(NShiftUIDomain.NShiftEngine.self)
@@ -344,15 +351,6 @@ private extension StructDeclSyntax {
             .bindings.first?.typeAnnotation?.type.trimmedDescription
     }
 
-    var declaresViewModel: Bool {
-        memberBlock.members
-            .compactMap { $0.decl.as(VariableDeclSyntax.self) }
-            .contains { variable in
-                variable.bindings.contains { binding in
-                    binding.pattern.as(IdentifierPatternSyntax.self)?.identifier.text == "viewModel"
-                }
-            }
-    }
 }
 
 struct NShiftEventMacroDiagnostic: DiagnosticMessage {

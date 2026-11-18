@@ -14,19 +14,21 @@ public final class NShiftDependencyEventHandler: Sendable, NShiftEventHandler {
 
     public func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {
         let resolvedEvents = eventStore.resolve(trigger, events: events)
 
         for event in resolvedEvents {
             let action = resolveAction(for: event)
-            try? await action?.execute(event)
+            try? await action?.execute(event, viewModel: viewModel)
         }
     }
 
     public func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {
         let resolvedEvents = eventStore.resolve(trigger, events: events)
 
@@ -36,7 +38,7 @@ public final class NShiftDependencyEventHandler: Sendable, NShiftEventHandler {
             }
 
             do {
-                try await action.execute(event)
+                try await action.execute(event, viewModel: viewModel)
             } catch is NShiftEventInitializationError {
                 throw NShiftEventHandlingError(event: event, reason: .initializationFailed)
             } catch {

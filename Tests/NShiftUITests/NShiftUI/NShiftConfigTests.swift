@@ -23,7 +23,7 @@ private struct ConfigButtonAssembly: NShiftDependencyAssembly {
 private struct ConfigEventAssembly: NShiftDependencyAssembly {
     func assembleEvents(in container: any NShiftDependencyContainer) {
         container.register(NShiftEventAction.self, name: "ShowToast@1.0.0") {
-            NShiftEventAction { _ in }
+            NShiftEventAction { _, _ in }
         }
     }
 }

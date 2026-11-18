@@ -80,7 +80,11 @@ open class NShiftDefaultEngine: NShiftEngineTree {
         onPluginID pluginID: String
     ) async {
         guard let node = node(withID: pluginID) else { return }
-        await eventHandler.handle(trigger, events: node.model.events)
+        await eventHandler.handle(
+            trigger,
+            events: node.model.events,
+            viewModel: pluginViewModel
+        )
     }
 
     open func replaceMetadata(pluginID: String, with metadata: AnyNShiftMetadata?) {

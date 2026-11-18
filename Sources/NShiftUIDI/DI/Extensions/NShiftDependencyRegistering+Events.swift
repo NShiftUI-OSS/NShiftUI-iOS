@@ -5,7 +5,8 @@ public extension NShiftDependencyRegistering {
         _ eventType: Event.Type,
         container: any NShiftDependencyContainer,
         factory: @escaping @Sendable (
-            NShiftEventModel
+            NShiftEventModel,
+            (any NShiftPluginViewModel)?
         ) async throws -> Event?
     ) where Event: NShiftEvent {
         let registrationName = NShiftVersion.registrationName(
@@ -18,30 +19,34 @@ public extension NShiftDependencyRegistering {
         let makeEvent = NShiftEventFactoryBox(factory)
 
         register(NShiftEventAction.self, name: registrationName) {
-            NShiftEventAction(throwing: { eventModel in
-                try await makeEvent(eventModel)
+            NShiftEventAction(throwing: { eventModel, viewModel in
+                try await makeEvent(eventModel, viewModel: viewModel)
             })
         }
     }
 }
 
 private struct NShiftEventFactoryBox: @unchecked Sendable {
-    private let execute: (NShiftEventModel) async throws -> Void
+    private let execute: (NShiftEventModel, (any NShiftPluginViewModel)?) async throws -> Void
 
     init<Event: NShiftEvent>(
         _ factory: @escaping @Sendable (
-            NShiftEventModel
+            NShiftEventModel,
+            (any NShiftPluginViewModel)?
         ) async throws -> Event?
     ) {
-        execute = { model in
-            guard let event = try await factory(model) else {
+        execute = { model, viewModel in
+            guard let event = try await factory(model, viewModel) else {
                 throw NShiftEventInitializationError()
             }
             try await event.execute()
         }
     }
 
-    func callAsFunction(_ model: NShiftEventModel) async throws {
-        try await execute(model)
+    func callAsFunction(
+        _ model: NShiftEventModel,
+        viewModel: (any NShiftPluginViewModel)?
+    ) async throws {
+        try await execute(model, viewModel)
     }
 }

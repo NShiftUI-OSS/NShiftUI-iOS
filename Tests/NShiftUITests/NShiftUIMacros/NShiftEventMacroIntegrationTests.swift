@@ -9,12 +9,14 @@ private final class IntegratedEventViewModel: NShiftPluginViewModel {}
 private final class IntegratedEventHandler: NShiftEventHandler {
     func handle(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async {}
 
     func handleThrowing(
         _ trigger: NShiftTrigger,
-        events: [AnyNShiftPluginEvent]
+        events: [AnyNShiftPluginEvent],
+        viewModel: (any NShiftPluginViewModel)?
     ) async throws(NShiftEventHandlingError) {}
 }
 
@@ -41,7 +43,8 @@ private struct IntegratedShowToastEvent: NShiftEvent {
     )
     let event = IntegratedShowToastEvent(
         model: model,
-        resolver: registry
+        resolver: registry,
+        viewModel: nil
     )
 
     #expect(event != nil)
