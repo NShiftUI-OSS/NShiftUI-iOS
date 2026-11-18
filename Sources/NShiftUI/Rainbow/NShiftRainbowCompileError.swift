@@ -9,6 +9,7 @@ public enum NShiftRainbowCompileError: Error, Equatable, Sendable {
     case invalidVersion(String)
     case missingVersion(String)
     case metadataDecodingFailed(plugin: String, message: String)
+    case taggedJSONRequired(String)
     case unsupportedTaggedValue(String)
 }
 
@@ -31,6 +32,8 @@ extension NShiftRainbowCompileError: CustomStringConvertible {
             "Missing version pin for \(name) (add use \(name)@x.y.z or register in catalog)"
         case .metadataDecodingFailed(let plugin, let message):
             "Failed to decode metadata for \(plugin): \(message)"
+        case .taggedJSONRequired(let name):
+            "Parameter \(name) must be a @JSON(...) value"
         case .unsupportedTaggedValue(let language):
             "Unsupported tagged value @\(language) in Rainbow parameters"
         }

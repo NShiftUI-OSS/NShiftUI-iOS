@@ -153,7 +153,11 @@ struct PrimaryButton: NShiftPlugin {
     }
 }
 
-extension PrimaryButton: NShiftPluginWithMetadata {
+extension PrimaryButton: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(PrimaryButtonMetadata.self, name: "PrimaryButton")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithViewModel {
@@ -300,7 +304,11 @@ struct PrimaryButton: NShiftUIDomain.NShiftPlugin {
     }
 }
 
-extension PrimaryButton: NShiftPluginWithMetadata {
+extension PrimaryButton: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(PrimaryButtonMetadata.self, name: "PrimaryButton")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithViewModel {
@@ -483,7 +491,11 @@ struct PrimaryButton: NShiftPlugin {
     }
 }
 
-extension PrimaryButton: NShiftPluginWithMetadata {
+extension PrimaryButton: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(PrimaryButtonMetadata.self, name: "PrimaryButton")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 
 extension PrimaryButton: NShiftPluginWithViewModel {
@@ -936,7 +948,11 @@ struct FormScreen: NShiftPluginContainer {
     }
 }
 
-extension FormScreen: NShiftPluginWithMetadata {
+extension FormScreen: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(FormScreenMetadata.self, name: "FormScreen")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 """,
             macros: nShiftPluginTestMacros
@@ -1048,7 +1064,11 @@ struct FormScreen: NShiftUIDomain.NShiftPluginContainer {
     }
 }
 
-extension FormScreen: NShiftPluginWithMetadata {
+extension FormScreen: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(FormScreenMetadata.self, name: "FormScreen")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 """,
             macros: nShiftPluginTestMacros
@@ -1192,7 +1212,11 @@ struct FormScreen: NShiftPlugin {
     }
 }
 
-extension FormScreen: NShiftPluginWithMetadata {
+extension FormScreen: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(FormScreenMetadata.self, name: "FormScreen")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+    }
 }
 
 extension FormScreen: NShiftPluginWithViewModel {
@@ -1491,7 +1515,13 @@ struct Toolbar: NShiftPlugin {
     }
 }
 
-extension Toolbar: NShiftPluginWithMetadata {
+extension Toolbar: NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+    nonisolated static func registerNShiftRainbow() {
+        NShiftRainbowCatalog.shared.registerIfDecodable(ToolbarMetadata.self, name: "Toolbar")
+        NShiftRainbowCatalog.shared.addSlotMarkers(Set(ToolbarSlots.allCases.map {
+                    $0.slotName.rawValue
+                }))
+    }
 }
 
 extension Toolbar: NShiftPluginWithViewModel {

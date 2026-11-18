@@ -4,9 +4,13 @@ import RainbowParser
 public enum NShiftRainbowJSON {
     public static func decode<T: Decodable>(
         _ type: T.Type,
-        from parameters: [RainbowParameter]
+        from parameters: [RainbowParameter],
+        jsonTaggedParameters: Set<String> = []
     ) throws -> T {
-        let object = try dictionary(from: parameters)
+        let object = try dictionary(
+            from: parameters,
+            jsonTaggedParameters: jsonTaggedParameters
+        )
         let data = try JSONSerialization.data(
             withJSONObject: object,
             options: []
@@ -15,11 +19,21 @@ public enum NShiftRainbowJSON {
     }
 
     public static func dictionary(
-        from parameters: [RainbowParameter]
+        from parameters: [RainbowParameter],
+        jsonTaggedParameters: Set<String> = []
     ) throws -> [String: Any] {
         var result: [String: Any] = [:]
         for parameter in parameters {
             if parameter.name == "id" || parameter.name == "style" {
+                continue
+            }
+            if jsonTaggedParameters.contains(parameter.name) {
+                guard case .tagged(let language, let body, _) = parameter.value,
+                      language == .json,
+                      case .text(let text) = body else {
+                    throw NShiftRainbowCompileError.taggedJSONRequired(parameter.name)
+                }
+                result[parameter.name] = text
                 continue
             }
             result[parameter.name] = try jsonValue(parameter.value)
@@ -51,8 +65,11 @@ public enum NShiftRainbowJSON {
                 object[entry.key] = try jsonValue(entry.value)
             }
             return object
-        case .tagged(let language, _, _):
-            throw NShiftRainbowCompileError.unsupportedTaggedValue(language.rawValue)
+        case .tagged(let language, let body, _):
+            guard case .text(let text) = body else {
+                throw NShiftRainbowCompileError.unsupportedTaggedValue(language.rawValue)
+            }
+            return text
         }
     }
 }

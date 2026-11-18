@@ -22,6 +22,7 @@ public extension NShiftDependencyRegistering {
             NShiftPluginContainerCatalog.shared.register(pluginType.name)
         }
         NShiftRegisteredVersionCatalog.shared.registerPlugin(pluginType.name, version: pluginType.version)
+        NShiftCatalogHooks.shared.hook?.typeRegistered(pluginType)
 
         register(
             NShiftRegisteredPluginView.self,

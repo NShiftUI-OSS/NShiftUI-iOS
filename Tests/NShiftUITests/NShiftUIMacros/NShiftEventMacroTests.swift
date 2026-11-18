@@ -64,7 +64,11 @@ final class NShiftEventMacroTests: XCTestCase {
                 }
             }
 
-            extension ShowToastEvent: NShiftEventWithMetadata {
+            extension ShowToastEvent: NShiftEventWithMetadata, NShiftRainbowRegistrant {
+                nonisolated static func registerNShiftRainbow() {
+                    NShiftRainbowCatalog.shared.registerIfDecodable(ShowToastMetadata.self, name: "ShowToast")
+                    NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+                }
             }
             """,
             macros: nShiftEventTestMacros
@@ -125,7 +129,11 @@ final class NShiftEventMacroTests: XCTestCase {
                 }
             }
 
-            extension NavigateEvent: NShiftEventWithMetadata {
+            extension NavigateEvent: NShiftEventWithMetadata, NShiftRainbowRegistrant {
+                nonisolated static func registerNShiftRainbow() {
+                    NShiftRainbowCatalog.shared.registerIfDecodable(NavigateMetadata.self, name: "Navigate")
+                    NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+                }
             }
             """,
             macros: nShiftEventTestMacros
@@ -210,7 +218,11 @@ final class NShiftEventMacroTests: XCTestCase {
                 }
             }
 
-            extension ShowToastEvent: NShiftEventWithMetadata {
+            extension ShowToastEvent: NShiftEventWithMetadata, NShiftRainbowRegistrant {
+                nonisolated static func registerNShiftRainbow() {
+                    NShiftRainbowCatalog.shared.registerIfDecodable(ShowToastMetadata.self, name: "ShowToast")
+                    NShiftRainbowCatalog.shared.addSlotMarkers(Set<String>())
+                }
             }
             """,
             diagnostics: [

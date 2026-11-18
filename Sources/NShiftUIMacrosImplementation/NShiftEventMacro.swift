@@ -304,10 +304,25 @@ private enum NShiftEventExtensionExpansion {
         }
 
         let typeName = type.trimmedDescription
+        let eventName = NShiftEventMemberExpansion.eventName(from: arguments) ?? ""
+        let metadataType: String
+        if case let .type(type) = NShiftEventMemberExpansion.metadataType(from: arguments) {
+            metadataType = type
+        } else {
+            return []
+        }
+        let slotsKeyType = try? NShiftEventMemberExpansion.slotsType(from: arguments)
+        let markers = slotsKeyType.map { type in
+            "Set(\(type).allCases.map { $0.slotName.rawValue })"
+        } ?? "Set<String>()"
         return [
             try ExtensionDeclSyntax(
                 """
-                extension \(raw: typeName): NShiftEventWithMetadata {
+                extension \(raw: typeName): NShiftEventWithMetadata, NShiftRainbowRegistrant {
+                    nonisolated static func registerNShiftRainbow() {
+                        NShiftRainbowCatalog.shared.registerIfDecodable(\(raw: metadataType).self, name: "\(raw: eventName)")
+                        NShiftRainbowCatalog.shared.addSlotMarkers(\(raw: markers))
+                    }
                 }
                 """
             ),

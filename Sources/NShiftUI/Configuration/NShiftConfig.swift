@@ -22,6 +22,7 @@ public final class NShiftConfig {
         )
 
         self.hostContainer = hostContainer
+        NShiftCatalogHooks.shared.hook = NShiftRainbowCatalogHook()
 
         let allAssemblies: [any NShiftDependencyAssembly] = [NShiftUIAssembly()] + assemblies
         allAssemblies.forEach { assembly in
@@ -39,8 +40,16 @@ public final class NShiftConfig {
         eventHandler = nil
         eventStore = nil
         isStarted = false
+        NShiftCatalogHooks.shared.hook = nil
+        NShiftRainbowCatalog.shared.resetForTesting()
         NShiftPluginContainerRegistry.shared.resetForTesting()
         NShiftPluginContainerCatalog.shared.resetForTesting()
         NShiftRegisteredVersionCatalog.shared.resetForTesting()
+    }
+}
+
+private final class NShiftRainbowCatalogHook: NShiftCatalogHook {
+    func typeRegistered(_ type: Any.Type) {
+        NShiftRainbowCatalog.shared.adopt(type)
     }
 }

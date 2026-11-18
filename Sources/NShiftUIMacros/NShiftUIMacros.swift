@@ -27,7 +27,11 @@ import NShiftUIDomain
         named(make),
         named(init)
 )
-@attached(extension, conformances: NShiftPluginWithMetadata, NShiftPluginWithViewModel)
+@attached(
+    extension,
+    conformances: NShiftPluginWithMetadata, NShiftPluginWithViewModel, NShiftRainbowRegistrant,
+    names: named(registerNShiftRainbow)
+)
 public macro NShiftPlugin(
     name: NShiftPluginName,
     version: NShiftVersion,
@@ -52,7 +56,11 @@ public macro NShiftPlugin(
         named(engine),
         named(init)
 )
-@attached(extension, conformances: NShiftEventWithMetadata)
+@attached(
+    extension,
+    conformances: NShiftEventWithMetadata, NShiftRainbowRegistrant,
+    names: named(registerNShiftRainbow)
+)
 public macro NShiftEvent(
     name: NShiftEventName,
     version: NShiftVersion,

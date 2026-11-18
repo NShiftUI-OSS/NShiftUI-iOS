@@ -124,7 +124,7 @@ public struct NShiftRainbowCompiler: Sendable {
         var events: [NShiftEventModel] = []
 
         for node in nodes {
-            if configuration.slotMarkers.contains(node.name) {
+            if isSlot(node.name) {
                 let slotName: NShiftSlotName
                 do {
                     slotName = try NShiftSlotName(validating: node.name)
@@ -214,7 +214,7 @@ public struct NShiftRainbowCompiler: Sendable {
                 continue
             }
 
-            if configuration.slotMarkers.contains(child.name) {
+            if isSlot(child.name) {
                 let slotName: NShiftSlotName
                 do {
                     slotName = try NShiftSlotName(validating: child.name)
@@ -266,10 +266,16 @@ public struct NShiftRainbowCompiler: Sendable {
         pluginName: String,
         parameters: [RainbowParameter]
     ) throws -> AnyNShiftMetadata? {
-        guard let decoder = configuration.metadataDecoders[pluginName] else {
+        let decoder = configuration.metadataDecoders[pluginName]
+            ?? NShiftRainbowCatalog.shared.decoder(named: pluginName)
+        guard let decoder else {
             return nil
         }
         return try decoder.decode(parameters: parameters)
+    }
+
+    private func isSlot(_ name: String) -> Bool {
+        configuration.slotMarkers.contains(name) || NShiftRainbowCatalog.shared.containsSlot(name)
     }
 
     private func decodeStyle(

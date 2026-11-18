@@ -535,12 +535,33 @@ private enum NShiftPluginExtensionExpansion {
         }
 
         let typeName = type.trimmedDescription
+        let pluginName = NShiftPluginMemberExpansion.pluginName(from: arguments)
+        let slotsKeyType = try? NShiftPluginMemberExpansion.slotsType(from: arguments)
         var extensions: [ExtensionDeclSyntax] = []
-        if case .type = metadataArgument {
+        if case let .type(metadataType) = metadataArgument, let pluginName {
+            let markers = slotsKeyType.map { type in
+                "Set(\(type).allCases.map { $0.slotName.rawValue })"
+            } ?? "Set<String>()"
             extensions.append(
                 try ExtensionDeclSyntax(
                     """
-                    extension \(raw: typeName): NShiftPluginWithMetadata {
+                    extension \(raw: typeName): NShiftPluginWithMetadata, NShiftRainbowRegistrant {
+                        nonisolated static func registerNShiftRainbow() {
+                            NShiftRainbowCatalog.shared.registerIfDecodable(\(raw: metadataType).self, name: "\(raw: pluginName)")
+                            NShiftRainbowCatalog.shared.addSlotMarkers(\(raw: markers))
+                        }
+                    }
+                    """
+                )
+            )
+        } else if let slotsKeyType {
+            extensions.append(
+                try ExtensionDeclSyntax(
+                    """
+                    extension \(raw: typeName): NShiftRainbowRegistrant {
+                        nonisolated static func registerNShiftRainbow() {
+                            NShiftRainbowCatalog.shared.addSlotMarkers(Set(\(raw: slotsKeyType).allCases.map { $0.slotName.rawValue }))
+                        }
                     }
                     """
                 )

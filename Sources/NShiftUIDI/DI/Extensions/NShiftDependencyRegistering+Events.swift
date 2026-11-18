@@ -15,6 +15,7 @@ public extension NShiftDependencyRegistering {
         )
 
         NShiftRegisteredVersionCatalog.shared.registerEvent(eventType.name, version: eventType.version)
+        NShiftCatalogHooks.shared.hook?.typeRegistered(eventType)
 
         let makeEvent = NShiftEventFactoryBox(factory)
 

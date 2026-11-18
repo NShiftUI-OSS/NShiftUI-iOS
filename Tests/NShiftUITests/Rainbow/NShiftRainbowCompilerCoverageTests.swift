@@ -421,6 +421,10 @@ private func defaultCompiler(
             == "Failed to decode metadata for Text: bad"
     )
     #expect(
+        NShiftRainbowCompileError.taggedJSONRequired("body").description
+            == "Parameter body must be a @JSON(...) value"
+    )
+    #expect(
         NShiftRainbowCompileError.unsupportedTaggedValue("JSON").description
             == "Unsupported tagged value @JSON in Rainbow parameters"
     )

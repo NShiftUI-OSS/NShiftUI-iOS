@@ -34,7 +34,28 @@ import Testing
     #expect(object["style"] == nil)
 }
 
-@Test func rainbowJSONThrowsUnsupportedTaggedValue() {
+@Test func rainbowJSONReadsEveryTaggedLanguageText() throws {
+    let range = RainbowSourceRange(
+        start: RainbowSourceLocation(offset: 0, line: 1, column: 1),
+        end: RainbowSourceLocation(offset: 1, line: 1, column: 2)
+    )
+    let samples: [(EmbeddedLanguage, String)] = [
+        (.json, "{\"a\":1}"),
+        (.yaml, "a: 1"),
+        (.xml, "<a>1</a>"),
+        (.html, "<p>1</p>"),
+        (.markdown, "# 1"),
+    ]
+
+    for (language, text) in samples {
+        let value = try NShiftRainbowJSON.jsonValue(
+            .tagged(language: language, body: .text(text), bodyRange: range)
+        )
+        #expect(value as? String == text)
+    }
+}
+
+@Test func rainbowJSONRejectsTaggedPlaceholders() {
     let range = RainbowSourceRange(
         start: RainbowSourceLocation(offset: 0, line: 1, column: 1),
         end: RainbowSourceLocation(offset: 1, line: 1, column: 2)
@@ -42,9 +63,35 @@ import Testing
 
     #expect(throws: NShiftRainbowCompileError.unsupportedTaggedValue("JSON")) {
         try NShiftRainbowJSON.jsonValue(
-            .tagged(language: .json, body: .text("{}"), bodyRange: range)
+            .tagged(language: .json, body: .placeholder("Name"), bodyRange: range)
         )
     }
+}
+
+@Test func rainbowJSONRequiresTaggedJSONForDeclaredParameters() throws {
+    let range = RainbowSourceRange(
+        start: RainbowSourceLocation(offset: 0, line: 1, column: 1),
+        end: RainbowSourceLocation(offset: 1, line: 1, column: 2)
+    )
+
+    #expect(throws: NShiftRainbowCompileError.taggedJSONRequired("body")) {
+        try NShiftRainbowJSON.dictionary(
+            from: [RainbowParameter(name: "body", value: .string("{}"))],
+            jsonTaggedParameters: ["body"]
+        )
+    }
+
+    let object = try NShiftRainbowJSON.dictionary(
+        from: [
+            RainbowParameter(
+                name: "body",
+                value: .tagged(language: .json, body: .text("{\"a\":1}"), bodyRange: range)
+            )
+        ],
+        jsonTaggedParameters: ["body"]
+    )
+
+    #expect(object["body"] as? String == "{\"a\":1}")
 }
 
 @Test func rainbowJSONDecodeSkipsEmptyParameters() throws {
