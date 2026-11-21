@@ -31,14 +31,16 @@ final class NShiftRainbowCompilerTests: XCTestCase {
             title: (text: "Home", size: 17)
           )
         ) {
+          Scroll() {
+            Text(text: "Hello", size: 16)
+          }
+        }
+        .slots {
           NavLeading {
             Icon(name: .back, size: 22)
           }
           NavTrailing {
             Icon(name: .settings, size: 22)
-          }
-          Scroll {
-            Text(text: "Hello", size: 16)
           }
         }
         """
@@ -73,7 +75,8 @@ final class NShiftRainbowCompilerTests: XCTestCase {
         use Button@1.0.0
         use Navigate@1.0.0
 
-        Button(title: "Go") {
+        Button(title: "Go")
+        .events {
           OnTap {
             Navigate(to: "Home")
           }
@@ -98,9 +101,10 @@ final class NShiftRainbowCompilerTests: XCTestCase {
         use VerticalStack@1.0.0
         use Text@1.0.0
 
-        VerticalStack(style: (spacing: 8)) {
+        VerticalStack() {
           Text(text: "A", size: 12)
         }
+        .style(spacing: 8)
         """
 
         let configuration = NShiftRainbowCompileConfiguration(

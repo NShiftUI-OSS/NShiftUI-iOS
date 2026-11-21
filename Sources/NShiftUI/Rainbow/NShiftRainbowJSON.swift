@@ -24,7 +24,7 @@ public enum NShiftRainbowJSON {
     ) throws -> [String: Any] {
         var result: [String: Any] = [:]
         for parameter in parameters {
-            if parameter.name == "id" || parameter.name == "style" {
+            if case .plugins = parameter.value {
                 continue
             }
             if jsonTaggedParameters.contains(parameter.name) {
@@ -70,6 +70,8 @@ public enum NShiftRainbowJSON {
                 throw NShiftRainbowCompileError.unsupportedTaggedValue(language.rawValue)
             }
             return text
+        case .plugins:
+            throw NShiftRainbowCompileError.unsupportedTaggedValue("plugins")
         }
     }
 }

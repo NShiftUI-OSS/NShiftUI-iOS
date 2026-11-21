@@ -79,7 +79,8 @@ private func defaultCompiler(
     let source = """
     use Button@1.0.0
 
-    Button() {
+    Button()
+    .events {
       OnTap {
         show_toast()
       }
@@ -96,7 +97,8 @@ private func defaultCompiler(
     use Screen@1.0.0
     use Icon@1.0.0
 
-    Screen() {
+    Screen()
+    .slots {
       leading {
         Icon()
       }
@@ -144,7 +146,8 @@ private func defaultCompiler(
     let source = """
     use Button@1.0.0
 
-    Button() {
+    Button()
+    .events {
       OnTap {
         ShowToast()
       }
@@ -176,7 +179,8 @@ private func defaultCompiler(
     catalog.registerEvent("ShowToast", version: "3.0.0")
 
     let source = """
-    Button() {
+    Button()
+    .events {
       OnTap {
         ShowToast()
       }
@@ -256,7 +260,8 @@ private func defaultCompiler(
     let source = """
     use Screen@1.0.0
 
-    Screen(id: "home")
+    Screen()
+    .id("home")
     """
     let model = try defaultCompiler().compile(source: source)
 
@@ -267,7 +272,8 @@ private func defaultCompiler(
     let source = """
     use VerticalStack@1.0.0
 
-    VerticalStack(style: (spacing: 8.5))
+    VerticalStack()
+    .style(spacing: 8.5)
     """
     let model = try defaultCompiler().compile(source: source)
 
@@ -291,9 +297,11 @@ private func defaultCompiler(
     use Navigate@1.0.0
     use Track@1.0.0
 
-    Button() {
+    Button()
+    .events {
       OnTap {
-        Navigate() {
+        Navigate()
+        .events {
           OnAppear {
             Track()
           }
@@ -301,14 +309,9 @@ private func defaultCompiler(
       }
     }
     """
-    let model = try defaultCompiler(defaultVersion: "1.0.0").compile(source: source)
-    let navigate = try #require(model.events.first?.event)
-    let track = try #require(navigate.events.first)
-
-    #expect(navigate.name.rawValue == "Navigate")
-    #expect(navigate.trigger.rawValue == "onTap")
-    #expect(track.name.rawValue == "Track")
-    #expect(track.trigger.rawValue == "onAppear")
+    #expect(throws: RainbowParseError.self) {
+        try defaultCompiler(defaultVersion: "1.0.0").compile(source: source)
+    }
 }
 
 @Test func rainbowCompilerCompilesEventSlots() throws {
@@ -317,9 +320,11 @@ private func defaultCompiler(
     use Navigate@1.0.0
     use Icon@1.0.0
 
-    Button() {
+    Button()
+    .events {
       OnTap {
-        Navigate() {
+        Navigate()
+        .slots {
           NavLeading {
             Icon()
           }
@@ -327,10 +332,9 @@ private func defaultCompiler(
       }
     }
     """
-    let model = try defaultCompiler(defaultVersion: "1.0.0").compile(source: source)
-    let event = try #require(model.events.first?.event)
-
-    #expect(event.slots["NavLeading"]?.first?.name.rawValue == "Icon")
+    #expect(throws: RainbowParseError.self) {
+        try defaultCompiler(defaultVersion: "1.0.0").compile(source: source)
+    }
 }
 
 @Test func rainbowCompilerCompilesMultipleEventsUnderOneTrigger() throws {
@@ -339,7 +343,8 @@ private func defaultCompiler(
     use Navigate@1.0.0
     use ShowToast@1.0.0
 
-    Button() {
+    Button()
+    .events {
       OnTap {
         Navigate()
         ShowToast()
@@ -371,7 +376,8 @@ private func defaultCompiler(
     use Screen@1.0.0
     use Icon@1.0.0
 
-    Screen() {
+    Screen()
+    .slots {
       ToolbarLeading {
         Icon()
       }

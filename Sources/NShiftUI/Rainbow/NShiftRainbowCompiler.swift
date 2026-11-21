@@ -80,105 +80,69 @@ public struct NShiftRainbowCompiler: Sendable {
             isEvent: false
         )
 
-        let partitioned = try partitionChildren(
-            node.children,
-            pins: pins
-        )
-
+        let children = try node.children.map { child in
+            try compilePlugin(node: child, pins: pins)
+        }
+        let slots = try compileSlots(node.slots, pins: pins)
+        let events = try compileModifierEvents(node.events, pins: pins)
         let metadata = try decodeMetadata(
             pluginName: node.name,
             parameters: node.parameters
         )
-
-        let id = stringParameter(
-            named: "id",
-            in: node.parameters
-        )
-
-        let style = try decodeStyle(
-            from: node.parameters
-        )
+        let style = try decodeStyle(from: node.style)
 
         return NShiftPluginModel(
-            id: id,
+            id: node.id,
             name: pluginName,
             version: version,
             metadata: metadata,
             style: style,
-            children: partitioned.children,
-            slots: partitioned.slots,
-            events: partitioned.events
-        )
-    }
-
-    private func partitionChildren(
-        _ nodes: [RainbowNode],
-        pins: NShiftDSLVersionPins
-    ) throws -> (
-        children: [NShiftPluginModel],
-        slots: [NShiftSlotName: [NShiftPluginModel]],
-        events: [NShiftEventModel]
-    ) {
-        var children: [NShiftPluginModel] = []
-        var slots: [NShiftSlotName: [NShiftPluginModel]] = [:]
-        var events: [NShiftEventModel] = []
-
-        for node in nodes {
-            if isSlot(node.name) {
-                let slotName: NShiftSlotName
-                do {
-                    slotName = try NShiftSlotName(validating: node.name)
-                } catch {
-                    throw NShiftRainbowCompileError.invalidSlotName(node.name)
-                }
-
-                let compiled = try node.children.map { child in
-                    try compilePlugin(
-                        node: child,
-                        pins: pins
-                    )
-                }
-                slots[slotName, default: []].append(contentsOf: compiled)
-                continue
-            }
-
-            if let trigger = trigger(from: node.name) {
-                let compiledEvents = try compileEvents(
-                    under: node,
-                    trigger: trigger,
-                    pins: pins
-                )
-                events.append(contentsOf: compiledEvents)
-                continue
-            }
-
-            children.append(
-                try compilePlugin(
-                    node: node,
-                    pins: pins
-                )
-            )
-        }
-
-        return (
             children: children,
             slots: slots,
             events: events
         )
     }
 
-    private func compileEvents(
-        under triggerNode: RainbowNode,
-        trigger: NShiftTrigger,
+    private func compileSlots(
+        _ slots: [RainbowSlot],
+        pins: NShiftDSLVersionPins
+    ) throws -> [NShiftSlotName: [NShiftPluginModel]] {
+        var compiled: [NShiftSlotName: [NShiftPluginModel]] = [:]
+        for slot in slots {
+            let slotName: NShiftSlotName
+            do {
+                slotName = try NShiftSlotName(validating: slot.name)
+            } catch {
+                throw NShiftRainbowCompileError.invalidSlotName(slot.name)
+            }
+            let plugins = try slot.plugins.map { plugin in
+                try compilePlugin(node: plugin, pins: pins)
+            }
+            compiled[slotName, default: []].append(contentsOf: plugins)
+        }
+        return compiled
+    }
+
+    private func compileModifierEvents(
+        _ triggers: [RainbowTrigger],
         pins: NShiftDSLVersionPins
     ) throws -> [NShiftEventModel] {
-        try triggerNode.children.map { eventNode in
-            try compileEvent(
-                node: eventNode,
-                trigger: trigger,
-                pins: pins
-            )
+        var events: [NShiftEventModel] = []
+        for triggerNode in triggers {
+            guard let trigger = trigger(from: triggerNode.name) else {
+                throw NShiftRainbowCompileError.invalidTriggerName(triggerNode.name)
+            }
+            for eventNode in triggerNode.events {
+                events.append(
+                    try compileEvent(
+                        node: eventNode,
+                        trigger: trigger,
+                        pins: pins
+                    )
+                )
+            }
         }
+        return events
     }
 
     private func compileEvent(
@@ -199,66 +163,21 @@ public struct NShiftRainbowCompiler: Sendable {
             isEvent: true
         )
 
-        var nestedEvents: [NShiftEventModel] = []
-        var slots: [NShiftSlotName: [NShiftPluginModel]] = [:]
-
-        for child in node.children {
-            if let nestedTrigger = self.trigger(from: child.name) {
-                nestedEvents.append(
-                    contentsOf: try compileEvents(
-                        under: child,
-                        trigger: nestedTrigger,
-                        pins: pins
-                    )
-                )
-                continue
-            }
-
-            if isSlot(child.name) {
-                let slotName: NShiftSlotName
-                do {
-                    slotName = try NShiftSlotName(validating: child.name)
-                } catch {
-                    throw NShiftRainbowCompileError.invalidSlotName(child.name)
-                }
-
-                let compiled = try child.children.map { nested in
-                    try compilePlugin(
-                        node: nested,
-                        pins: pins
-                    )
-                }
-                slots[slotName, default: []].append(contentsOf: compiled)
-                continue
-            }
-
-            nestedEvents.append(
-                try compileEvent(
-                    node: child,
-                    trigger: trigger,
-                    pins: pins
-                )
-            )
-        }
-
         let metadata = try decodeMetadata(
             pluginName: node.name,
             parameters: node.parameters
         )
-
-        let id = stringParameter(
-            named: "id",
-            in: node.parameters
-        )
+        let slots = try compileSlots(node.slots, pins: pins)
+        let nested = try compileModifierEvents(node.events, pins: pins)
 
         return NShiftEventModel(
-            id: id ?? UUID().uuidString,
+            id: node.id ?? "",
             name: eventName,
             version: version,
             metadata: metadata,
             trigger: trigger,
             slots: slots,
-            events: nestedEvents
+            events: nested
         )
     }
 
@@ -274,25 +193,15 @@ public struct NShiftRainbowCompiler: Sendable {
         return try decoder.decode(parameters: parameters)
     }
 
-    private func isSlot(_ name: String) -> Bool {
-        configuration.slotMarkers.contains(name) || NShiftRainbowCatalog.shared.containsSlot(name)
-    }
-
     private func decodeStyle(
         from parameters: [RainbowParameter]
     ) throws -> NShiftPluginStyle {
-        guard let styleParameter = parameters.first(where: { $0.name == "style" }) else {
-            return NShiftPluginStyle()
-        }
-
-        guard case .object(let entries) = styleParameter.value else {
-            return NShiftPluginStyle()
-        }
-
         var spacing: CGFloat = 0
-        for entry in entries {
-            if entry.key == "spacing" {
-                switch entry.value {
+        var alignment = NShiftPluginAlignment.center
+        for parameter in parameters {
+            switch parameter.name {
+            case "spacing":
+                switch parameter.value {
                 case .int(let value):
                     spacing = CGFloat(value)
                 case .double(let value):
@@ -300,10 +209,18 @@ public struct NShiftRainbowCompiler: Sendable {
                 default:
                     break
                 }
+            case "alignment":
+                if case .identifier(let name) = parameter.value {
+                    let token = name.hasPrefix(".") ? String(name.dropFirst()) : name
+                    if let parsed = NShiftPluginAlignment(rawValue: token) {
+                        alignment = parsed
+                    }
+                }
+            default:
+                break
             }
         }
-
-        return NShiftPluginStyle(spacing: spacing)
+        return NShiftPluginStyle(alignment: alignment, spacing: spacing)
     }
 
     private func resolveVersion(

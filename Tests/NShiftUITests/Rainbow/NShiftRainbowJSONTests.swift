@@ -30,8 +30,28 @@ import Testing
     #expect(object["token"] as? String == "back")
     #expect(object["tags"] as? [String] == ["a", "b"])
     #expect((object["nested"] as? [String: Any])?["inner"] as? Int == 1)
-    #expect(object["id"] == nil)
-    #expect(object["style"] == nil)
+    #expect(object["id"] as? String == "skip-me")
+    #expect(object["style"] is [String: Any])
+}
+
+@Test func rainbowJSONKeepsStringStyleAndDropsLayoutStyle() throws {
+    let text = try NShiftRainbowJSON.dictionary(
+        from: [
+            RainbowParameter(name: "text", value: .string("Entrada")),
+            RainbowParameter(name: "style", value: .string("xl")),
+        ]
+    )
+    #expect(text["text"] as? String == "Entrada")
+    #expect(text["style"] as? String == "xl")
+
+    let layout = try NShiftRainbowJSON.dictionary(
+        from: [
+            RainbowParameter(name: "style", value: .object([])),
+            RainbowParameter(name: "text", value: .string("Entrada")),
+        ]
+    )
+    #expect(layout["style"] is [String: Any])
+    #expect(layout["text"] as? String == "Entrada")
 }
 
 @Test func rainbowJSONReadsEveryTaggedLanguageText() throws {
