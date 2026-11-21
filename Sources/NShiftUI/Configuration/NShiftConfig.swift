@@ -16,10 +16,9 @@ public final class NShiftConfig {
         hostContainer: any NShiftDependencyContainer,
         assemblies: [any NShiftDependencyAssembly] = []
     ) {
-        NShiftRuntimePrecondition.check(
-            isStarted == false,
-            "NShiftUI has already been started."
-        )
+        if isStarted {
+            resetForTesting()
+        }
 
         self.hostContainer = hostContainer
         NShiftCatalogHooks.shared.hook = NShiftRainbowCatalogHook()
