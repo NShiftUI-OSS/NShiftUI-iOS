@@ -31,7 +31,7 @@ final class NShiftRainbowCompilerTests: XCTestCase {
             title: (text: "Home", size: 17)
           )
         ) {
-          Scroll() {
+          Scroll {
             Text(text: "Hello", size: 16)
           }
         }
@@ -101,7 +101,7 @@ final class NShiftRainbowCompilerTests: XCTestCase {
         use VerticalStack@1.0.0
         use Text@1.0.0
 
-        VerticalStack() {
+        VerticalStack {
           Text(text: "A", size: 12)
         }
         .style(spacing: 8)

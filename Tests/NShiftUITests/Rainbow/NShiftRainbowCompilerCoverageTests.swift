@@ -361,7 +361,7 @@ private func defaultCompiler(
     use Screen@1.0.0
     use Ontap@1.0.0
 
-    Screen() {
+    Screen {
       Ontap()
     }
     """
