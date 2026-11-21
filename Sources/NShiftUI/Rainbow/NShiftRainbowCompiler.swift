@@ -83,19 +83,23 @@ public struct NShiftRainbowCompiler: Sendable {
         let children = try node.children.map { child in
             try compilePlugin(node: child, pins: pins)
         }
-        let slots = try compileSlots(node.slots, pins: pins)
+        var slots = try compileSlots(node.slots, pins: pins)
         let events = try compileModifierEvents(node.events, pins: pins)
-        let metadata = try decodeMetadata(
+        let decodedMetadata = try decodeMetadata(
             pluginName: node.name,
-            parameters: node.parameters
+            parameters: node.parameters,
+            pins: pins
         )
         let style = try decodeStyle(from: node.style)
+        for (slot, models) in decodedMetadata.slots {
+            slots[slot, default: []].append(contentsOf: models)
+        }
 
         return NShiftPluginModel(
             id: node.id,
             name: pluginName,
             version: version,
-            metadata: metadata,
+            metadata: decodedMetadata.metadata,
             style: style,
             children: children,
             slots: slots,
@@ -165,7 +169,8 @@ public struct NShiftRainbowCompiler: Sendable {
 
         let metadata = try decodeMetadata(
             pluginName: node.name,
-            parameters: node.parameters
+            parameters: node.parameters,
+            pins: pins
         )
         let slots = try compileSlots(node.slots, pins: pins)
         let nested = try compileModifierEvents(node.events, pins: pins)
@@ -174,7 +179,7 @@ public struct NShiftRainbowCompiler: Sendable {
             id: node.id ?? "",
             name: eventName,
             version: version,
-            metadata: metadata,
+            metadata: metadata.metadata,
             trigger: trigger,
             slots: slots,
             events: nested
@@ -183,14 +188,26 @@ public struct NShiftRainbowCompiler: Sendable {
 
     private func decodeMetadata(
         pluginName: String,
-        parameters: [RainbowParameter]
-    ) throws -> AnyNShiftMetadata? {
+        parameters: [RainbowParameter],
+        pins: NShiftDSLVersionPins
+    ) throws -> NShiftRainbowMetadataDecodeResult {
         let decoder = configuration.metadataDecoders[pluginName]
             ?? NShiftRainbowCatalog.shared.decoder(named: pluginName)
         guard let decoder else {
-            return nil
+            return NShiftRainbowMetadataDecodeResult(metadata: nil)
         }
-        return try decoder.decode(parameters: parameters)
+        return try decoder.decode(
+            parameters: parameters,
+            context: NShiftRainbowMetadataDecodingContext { parameterName in
+                let pluginNodes = Self.pluginNodes(
+                    named: parameterName,
+                    in: parameters
+                )
+                return try pluginNodes.map { plugin in
+                    try self.compilePlugin(node: plugin, pins: pins)
+                }
+            }
+        )
     }
 
     private func decodeStyle(
@@ -348,6 +365,29 @@ public struct NShiftRainbowCompiler: Sendable {
         default:
             return nil
         }
+    }
+
+    private static func pluginNodes(
+        named path: String,
+        in parameters: [RainbowParameter]
+    ) -> [RainbowNode] {
+        let components = path.split(separator: ".").map(String.init)
+        guard let first = components.first,
+              let parameter = parameters.first(where: { $0.name == first }) else {
+            return []
+        }
+        var value = parameter.value
+        for component in components.dropFirst() {
+            guard case .object(let entries) = value,
+                  let entry = entries.first(where: { $0.key == component }) else {
+                return []
+            }
+            value = entry.value
+        }
+        guard case .plugins(let plugins) = value else {
+            return []
+        }
+        return plugins
     }
 
     private static func offset(_ value: RainbowValue) -> NShiftPluginOffset {

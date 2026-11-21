@@ -8,6 +8,32 @@ private struct SampleTextMetadata: NShiftMetadata, Codable, Equatable {
     let size: Double
 }
 
+private struct SampleScrollMetadata: NShiftMetadata, Codable, Equatable, NShiftRainbowPluginMetadata {
+    let scroll: SampleScroll?
+
+    func decodeRainbowMetadata(
+        with context: NShiftRainbowMetadataDecodingContext
+    ) throws -> NShiftRainbowMetadataDecodeResult {
+        var slots: [NShiftSlotName: [NShiftPluginModel]] = [:]
+        let header = try context.compilePlugins("scroll.header")
+        let footer = try context.compilePlugins("scroll.footer")
+        if header.isEmpty == false {
+            slots["ScrollHeader"] = header
+        }
+        if footer.isEmpty == false {
+            slots["ScrollFooter"] = footer
+        }
+        return NShiftRainbowMetadataDecodeResult(
+            metadata: AnyNShiftMetadata(self),
+            slots: slots
+        )
+    }
+}
+
+private struct SampleScroll: Codable, Hashable {
+    let isLazy: Bool
+}
+
 private func defaultCompiler(
     catalog: NShiftRegisteredVersionCatalog = NShiftRegisteredVersionCatalog(forTesting: ()),
     defaultVersion: NShiftVersion? = nil,
@@ -36,6 +62,41 @@ private func defaultCompiler(
 
     #expect(model.name.rawValue == "Screen")
     #expect(model.version.rawValue == "1.0.0")
+}
+
+@Test func rainbowCompilerCompilesPluginMetadataValuesIntoEngineSlots() throws {
+    var configuration = NShiftRainbowCompileConfiguration(defaultVersion: "1.0.0")
+    configuration.catalog = NShiftRegisteredVersionCatalog(forTesting: ())
+    configuration.registerMetadataDecoder(
+        NShiftRainbowDecodableMetadataDecoder<SampleScrollMetadata>(pluginName: "Screen")
+    )
+    configuration.registerMetadataDecoder(
+        NShiftRainbowDecodableMetadataDecoder<SampleTextMetadata>(pluginName: "Text")
+    )
+
+    let model = try NShiftRainbowCompiler(configuration: configuration).compile(source: """
+    use Screen@1.0.0
+    use Text@1.0.0
+
+    Screen(
+      scroll: (
+        isLazy: true,
+        header: {
+          Text(text: "Header", size: 16)
+        },
+        footer: {
+          Text(text: "Footer", size: 16)
+        }
+      )
+    ) {
+      Text(text: "Body", size: 16)
+    }
+    """)
+
+    #expect(model.metadata?.unwrap(as: SampleScrollMetadata.self)?.scroll?.isLazy == true)
+    #expect(model.slots["ScrollHeader"]?.map(\.name.rawValue) == ["Text"])
+    #expect(model.slots["ScrollFooter"]?.map(\.name.rawValue) == ["Text"])
+    #expect(model.children.map(\.name.rawValue) == ["Text"])
 }
 
 @Test func rainbowCompilerCompileAllReturnsEveryRoot() throws {

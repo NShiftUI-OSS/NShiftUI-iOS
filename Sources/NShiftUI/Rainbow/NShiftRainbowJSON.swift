@@ -62,6 +62,9 @@ public enum NShiftRainbowJSON {
         case .object(let entries):
             var object: [String: Any] = [:]
             for entry in entries {
+                if case .plugins = entry.value {
+                    continue
+                }
                 object[entry.key] = try jsonValue(entry.value)
             }
             return object
