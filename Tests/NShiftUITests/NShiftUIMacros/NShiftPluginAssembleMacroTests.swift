@@ -30,7 +30,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                             viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
-                            engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
+                            engine: NShiftUI.NShiftRenderingEngine.current ?? container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
@@ -61,7 +61,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                             viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
-                            engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
+                            engine: NShiftUI.NShiftRenderingEngine.current ?? container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
@@ -71,7 +71,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                             viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
-                            engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
+                            engine: NShiftUI.NShiftRenderingEngine.current ?? container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
@@ -105,7 +105,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                             viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
-                            engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
+                            engine: NShiftUI.NShiftRenderingEngine.current ?? container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
@@ -139,7 +139,7 @@ final class NShiftPluginAssembleMacroTests: XCTestCase {
                             viewModel: viewModel,
                             resolver: container,
                             eventHandler: container.resolveUnwrapping(NShiftUIDomain.NShiftEventHandler.self),
-                            engine: container.resolve(NShiftUIDomain.NShiftEngine.self),
+                            engine: NShiftUI.NShiftRenderingEngine.current ?? container.resolve(NShiftUIDomain.NShiftEngine.self),
                             renderID: renderID
                         )
                     }
