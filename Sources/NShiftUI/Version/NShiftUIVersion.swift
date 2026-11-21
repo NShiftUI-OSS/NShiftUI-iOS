@@ -1,3 +1,3 @@
 public enum NShiftUIVersion {
-    public static let current = "0.2.0-beta.1"
+    public static let current = "0.2.0-beta.2"
 }
