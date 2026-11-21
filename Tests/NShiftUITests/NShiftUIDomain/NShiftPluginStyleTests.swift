@@ -1,26 +1,31 @@
 import NShiftUIDomain
 import Testing
 
-@Test func pluginStyleStoresFrameAndAlignment() throws {
+@Test func pluginStyleStoresFrameOffsetAndBackground() throws {
     let frame = try NShiftPluginFrame(width: 320, height: nil)
-    let style = NShiftPluginStyle(frame: frame, alignment: .topLeading)
+    let style = NShiftPluginStyle(
+        frame: frame,
+        background: NShiftPluginBackground(color: "primary", ignoreSafeArea: .top),
+        offset: NShiftPluginOffset(x: 4, y: 8)
+    )
 
     #expect(style.frame == frame)
-    #expect(style.alignment == .topLeading)
+    #expect(style.background?.color == "primary")
+    #expect(style.offset == NShiftPluginOffset(x: 4, y: 8))
 }
 
-@Test func pluginStyleDefaultsToFlexibleFrameCenterAlignmentAndZeroSpacing() {
+@Test func pluginStyleDefaultsToFlexibleFrameAndZeroOffset() {
     let style = NShiftPluginStyle()
 
     #expect(style.frame == NShiftPluginFrame())
-    #expect(style.alignment == .center)
-    #expect(style.spacing == 0)
+    #expect(style.background == nil)
+    #expect(style.offset == .zero)
+    #expect(style.ignoreSafeArea.isEmpty)
 }
 
-@Test func pluginStyleStoresSpacing() {
-    let style = NShiftPluginStyle(spacing: 16)
-
-    #expect(style.spacing == 16)
+@Test func safeAreaEdgesParseASingleEdgeOrAList() {
+    #expect(NShiftSafeAreaEdges.parse(["all"]) == .all)
+    #expect(NShiftSafeAreaEdges.parse(["leading", "bottom"]) == [.leading, .bottom])
 }
 
 @Test func pluginFrameDefaultsToFlexibleDimensions() {

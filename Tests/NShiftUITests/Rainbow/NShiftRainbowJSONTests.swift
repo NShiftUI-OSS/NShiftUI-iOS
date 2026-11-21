@@ -127,10 +127,10 @@ import Testing
     #expect(decoded == Payload(title: "Home"))
 }
 
-@Test func rainbowMetadataDecoderReturnsNilForEmptyParameters() throws {
+@Test func rainbowMetadataDecoderDecodesDefaultsForEmptyParameters() throws {
     let decoder = NShiftRainbowDecodableMetadataDecoder<EmptyDecodableMetadata>(pluginName: "Text")
 
-    #expect(try decoder.decode(parameters: []) == nil)
+    #expect(try decoder.decode(parameters: [])?.unwrap(as: EmptyDecodableMetadata.self) != nil)
 }
 
 private struct EmptyDecodableMetadata: NShiftMetadata, Codable {}

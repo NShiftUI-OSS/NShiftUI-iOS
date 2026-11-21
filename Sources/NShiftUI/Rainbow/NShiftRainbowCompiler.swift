@@ -196,31 +196,159 @@ public struct NShiftRainbowCompiler: Sendable {
     private func decodeStyle(
         from parameters: [RainbowParameter]
     ) throws -> NShiftPluginStyle {
-        var spacing: CGFloat = 0
-        var alignment = NShiftPluginAlignment.center
+        var width: Double?
+        var height: Double?
+        var minWidth: Double?
+        var maxWidth: Double?
+        var minHeight: Double?
+        var maxHeight: Double?
+        var background: NShiftPluginBackground?
+        var ignoreSafeArea = NShiftSafeAreaEdges()
+        var offset = NShiftPluginOffset.zero
+        var animation: NShiftPluginAnimation?
+
         for parameter in parameters {
             switch parameter.name {
-            case "spacing":
-                switch parameter.value {
-                case .int(let value):
-                    spacing = CGFloat(value)
-                case .double(let value):
-                    spacing = CGFloat(value)
-                default:
-                    break
+            case "width":
+                width = Self.number(parameter.value)
+            case "height":
+                height = Self.number(parameter.value)
+            case "minWidth":
+                minWidth = Self.number(parameter.value)
+            case "maxWidth":
+                maxWidth = Self.number(parameter.value)
+            case "minHeight":
+                minHeight = Self.number(parameter.value)
+            case "maxHeight":
+                maxHeight = Self.number(parameter.value)
+            case "background":
+                background = Self.background(parameter.value)
+            case "ignoreSafeArea":
+                ignoreSafeArea = Self.edges(parameter.value)
+            case "offset":
+                offset = Self.offset(parameter.value)
+            case "animation":
+                animation = Self.animation(parameter.value)
+            default:
+                break
+            }
+        }
+
+        let frame = try NShiftPluginFrame(
+            width: width,
+            height: height,
+            minWidth: minWidth.map(NShiftPluginDimension.value),
+            maxWidth: maxWidth.map(NShiftPluginDimension.value),
+            minHeight: minHeight.map(NShiftPluginDimension.value),
+            maxHeight: maxHeight.map(NShiftPluginDimension.value)
+        )
+        return NShiftPluginStyle(
+            frame: frame,
+            background: background,
+            ignoreSafeArea: ignoreSafeArea,
+            offset: offset,
+            animation: animation
+        )
+    }
+
+    private static func number(_ value: RainbowValue) -> Double? {
+        switch value {
+        case .int(let int):
+            return Double(int)
+        case .double(let double):
+            return double
+        default:
+            return nil
+        }
+    }
+
+    private static func token(_ value: RainbowValue) -> String? {
+        switch value {
+        case .identifier(let name), .string(let name):
+            return name.hasPrefix(".") ? String(name.dropFirst()) : name
+        default:
+            return nil
+        }
+    }
+
+    private static func edges(_ value: RainbowValue) -> NShiftSafeAreaEdges {
+        switch value {
+        case .array(let values):
+            return NShiftSafeAreaEdges.parse(values.compactMap(token))
+        default:
+            return NShiftSafeAreaEdges.parse([token(value)].compactMap { $0 })
+        }
+    }
+
+    private static func background(_ value: RainbowValue) -> NShiftPluginBackground? {
+        guard case .object(let entries) = value else { return nil }
+        var color: String?
+        var ignoreSafeArea = NShiftSafeAreaEdges()
+        for entry in entries {
+            switch entry.key {
+            case "color":
+                color = token(entry.value)
+            case "ignoreSafeArea":
+                ignoreSafeArea = edges(entry.value)
+            default:
+                break
+            }
+        }
+        guard color != nil || !ignoreSafeArea.isEmpty else { return nil }
+        return NShiftPluginBackground(color: color, ignoreSafeArea: ignoreSafeArea)
+    }
+
+    private static func offset(_ value: RainbowValue) -> NShiftPluginOffset {
+        guard case .object(let entries) = value else { return .zero }
+        var x = 0.0
+        var y = 0.0
+        for entry in entries {
+            switch entry.key {
+            case "x":
+                x = number(entry.value) ?? x
+            case "y":
+                y = number(entry.value) ?? y
+            default:
+                break
+            }
+        }
+        return NShiftPluginOffset(x: x, y: y)
+    }
+
+    private static func animation(_ value: RainbowValue) -> NShiftPluginAnimation? {
+        guard case .object(let entries) = value else { return nil }
+        var isEnabled = false
+        var durationMillis = 300
+        var delayMillis = 0
+        var curve = NShiftAnimationCurve.easeInOut
+        for entry in entries {
+            switch entry.key {
+            case "isEnabled":
+                if case .bool(let enabled) = entry.value {
+                    isEnabled = enabled
                 }
-            case "alignment":
-                if case .identifier(let name) = parameter.value {
-                    let token = name.hasPrefix(".") ? String(name.dropFirst()) : name
-                    if let parsed = NShiftPluginAlignment(rawValue: token) {
-                        alignment = parsed
-                    }
+            case "duration":
+                if let number = number(entry.value) {
+                    durationMillis = Int(number)
+                }
+            case "delay":
+                if let number = number(entry.value) {
+                    delayMillis = Int(number)
+                }
+            case "curve":
+                if let name = token(entry.value), let parsed = NShiftAnimationCurve(rawValue: name) {
+                    curve = parsed
                 }
             default:
                 break
             }
         }
-        return NShiftPluginStyle(alignment: alignment, spacing: spacing)
+        return NShiftPluginAnimation(
+            isEnabled: isEnabled,
+            durationMillis: durationMillis,
+            delayMillis: delayMillis,
+            curve: curve
+        )
     }
 
     private func resolveVersion(

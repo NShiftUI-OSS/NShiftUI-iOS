@@ -26,10 +26,6 @@ public struct NShiftRainbowDecodableMetadataDecoder<
     public func decode(
         parameters: [RainbowParameter]
     ) throws -> AnyNShiftMetadata? {
-        if parameters.isEmpty {
-            return nil
-        }
-
         do {
             let declaredTags = (Metadata.self as? any NShiftJSONTaggedMetadata.Type)?
                 .jsonTaggedParameters ?? []
@@ -40,8 +36,14 @@ public struct NShiftRainbowDecodableMetadataDecoder<
             )
             return AnyNShiftMetadata(metadata)
         } catch let error as NShiftRainbowCompileError {
+            if parameters.isEmpty {
+                return nil
+            }
             throw error
         } catch {
+            if parameters.isEmpty {
+                return nil
+            }
             throw NShiftRainbowCompileError.metadataDecodingFailed(
                 plugin: pluginName,
                 message: String(describing: error)

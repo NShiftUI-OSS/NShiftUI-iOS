@@ -69,7 +69,7 @@ private struct TestViewPluginContainer: NShiftPluginContainer, NShiftPluginWithM
     ]
     let style = NShiftPluginStyle(
         frame: try NShiftPluginFrame(width: 120, height: 48),
-        alignment: .center
+        offset: NShiftPluginOffset(x: 2, y: 0)
     )
     let metadata = TestPluginMetadata()
     let plugin = TestPlugin(

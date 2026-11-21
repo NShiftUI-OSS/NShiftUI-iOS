@@ -64,7 +64,7 @@ private struct IntegratedContainer: NShiftPluginContainer {
         id: "integrated",
         name: "IntegratedPlugin", version: "1.0.0",
         metadata: IntegratedPluginMetadata(),
-        style: NShiftPluginStyle(alignment: .center),
+        style: NShiftPluginStyle(),
         children: [NShiftPluginModel(id: "title", name: "Text", version: "1.0.0")]
     )
     let plugin = IntegratedPlugin(
@@ -87,7 +87,7 @@ private struct IntegratedContainer: NShiftPluginContainer {
         id: "integrated-container",
         name: "IntegratedContainer", version: "1.0.0",
         metadata: IntegratedPluginMetadata(),
-        style: NShiftPluginStyle(alignment: .center),
+        style: NShiftPluginStyle(),
         children: [NShiftPluginModel(id: "title", name: "Text", version: "1.0.0")]
     )
     let plugin = IntegratedContainer(

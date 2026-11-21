@@ -6,7 +6,7 @@
       "kind": "remoteSourceControl",
       "location": "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
       "state": {
-        "revision": "87daaa39cb82b5effb7d62f05be0905deac2ba4a",
+        "revision": "f4a1932f999cf3d86193eca9d90c10bdf0ac9613",
         "version": "0.2.0-beta.1"
       }
     },

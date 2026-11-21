@@ -20,8 +20,7 @@ import Testing
     let styled = Text("x").nShiftPluginStyle(
         NShiftPluginStyle(
             frame: NShiftPluginFrame(),
-            alignment: .topLeading,
-            spacing: 8
+            offset: NShiftPluginOffset(x: 0, y: 8)
         )
     )
 

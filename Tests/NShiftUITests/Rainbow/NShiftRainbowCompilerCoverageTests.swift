@@ -273,11 +273,11 @@ private func defaultCompiler(
     use VerticalStack@1.0.0
 
     VerticalStack()
-    .style(spacing: 8.5)
+    .style(offset: (y: 8.5))
     """
     let model = try defaultCompiler().compile(source: source)
 
-    #expect(model.style.spacing == 8.5)
+    #expect(model.style.offset.y == 8.5)
 }
 
 @Test func rainbowCompilerIgnoresNonObjectStyle() throws {

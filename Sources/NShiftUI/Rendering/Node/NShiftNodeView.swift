@@ -20,7 +20,7 @@ public struct NShiftNodeView: View {
     public var body: some View {
         Group {
             if let view = engine.makeView(for: node, viewModel: viewModel) {
-                view
+                view.nShiftPluginStyle(node.model.style)
             } else {
                 EmptyView()
             }

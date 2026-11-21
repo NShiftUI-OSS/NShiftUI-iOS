@@ -104,7 +104,12 @@ final class NShiftRainbowCompilerTests: XCTestCase {
         VerticalStack {
           Text(text: "A", size: 12)
         }
-        .style(spacing: 8)
+        .style(
+          offset: (
+            x: 4,
+            y: 8
+          )
+        )
         """
 
         let configuration = NShiftRainbowCompileConfiguration(
@@ -112,6 +117,6 @@ final class NShiftRainbowCompilerTests: XCTestCase {
         )
         let compiler = NShiftRainbowCompiler(configuration: configuration)
         let model = try compiler.compile(source: source)
-        XCTAssertEqual(model.style.spacing, 8)
+        XCTAssertEqual(model.style.offset, NShiftPluginOffset(x: 4, y: 8))
     }
 }
