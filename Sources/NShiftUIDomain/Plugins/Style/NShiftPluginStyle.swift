@@ -37,6 +37,42 @@ public struct NShiftSafeAreaEdges: OptionSet, Hashable, Sendable {
     }
 }
 
+public struct NShiftPluginPadding: Equatable, Hashable, Sendable {
+    public var top: Int?
+    public var leading: Int?
+    public var trailing: Int?
+    public var horizontal: Int?
+    public var vertical: Int?
+    public var bottom: Int?
+
+    public init(
+        top: Int? = nil,
+        leading: Int? = nil,
+        trailing: Int? = nil,
+        horizontal: Int? = nil,
+        vertical: Int? = nil,
+        bottom: Int? = nil
+    ) {
+        self.top = top
+        self.leading = leading
+        self.trailing = trailing
+        self.horizontal = horizontal
+        self.vertical = vertical
+        self.bottom = bottom
+    }
+
+    public static let zero = NShiftPluginPadding()
+
+    public var resolvedTop: Int { top ?? vertical ?? 0 }
+    public var resolvedBottom: Int { bottom ?? vertical ?? 0 }
+    public var resolvedLeading: Int { leading ?? horizontal ?? 0 }
+    public var resolvedTrailing: Int { trailing ?? horizontal ?? 0 }
+
+    public var isZero: Bool {
+        resolvedTop == 0 && resolvedBottom == 0 && resolvedLeading == 0 && resolvedTrailing == 0
+    }
+}
+
 public struct NShiftPluginOffset: Equatable, Hashable, Sendable {
     public var x: Double
     public var y: Double
@@ -91,6 +127,7 @@ public struct NShiftPluginAnimation: Equatable, Hashable, Sendable {
 public struct NShiftPluginStyle: Equatable, Hashable, Sendable {
     public let frame: NShiftPluginFrame
     public let background: NShiftPluginBackground?
+    public let padding: NShiftPluginPadding
     public let ignoreSafeArea: NShiftSafeAreaEdges
     public let offset: NShiftPluginOffset
     public let animation: NShiftPluginAnimation?
@@ -98,12 +135,14 @@ public struct NShiftPluginStyle: Equatable, Hashable, Sendable {
     public init(
         frame: NShiftPluginFrame = NShiftPluginFrame(),
         background: NShiftPluginBackground? = nil,
+        padding: NShiftPluginPadding = .zero,
         ignoreSafeArea: NShiftSafeAreaEdges = [],
         offset: NShiftPluginOffset = .zero,
         animation: NShiftPluginAnimation? = nil
     ) {
         self.frame = frame
         self.background = background
+        self.padding = padding
         self.ignoreSafeArea = ignoreSafeArea
         self.offset = offset
         self.animation = animation

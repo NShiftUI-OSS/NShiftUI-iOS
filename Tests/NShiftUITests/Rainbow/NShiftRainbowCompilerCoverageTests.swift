@@ -268,6 +268,21 @@ private func defaultCompiler(
     #expect(model.id == "home")
 }
 
+@Test func rainbowCompilerReadsStylePadding() throws {
+    let source = """
+    use Text@1.0.0
+
+    Text(text: "A")
+    .style(padding: (horizontal: 12, leading: 2, vertical: 10, top: 4))
+    """
+    let padding = try defaultCompiler().compile(source: source).style.padding
+
+    #expect(padding.resolvedTop == 4)
+    #expect(padding.resolvedBottom == 10)
+    #expect(padding.resolvedLeading == 2)
+    #expect(padding.resolvedTrailing == 12)
+}
+
 @Test func rainbowCompilerReadsStyleSpacingDouble() throws {
     let source = """
     use VerticalStack@1.0.0

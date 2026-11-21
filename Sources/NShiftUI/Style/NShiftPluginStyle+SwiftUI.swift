@@ -74,6 +74,7 @@ public struct NShiftPluginStyleModifier: ViewModifier {
                 )
             )
             .modifier(NShiftPluginBackgroundModifier(background: style.background, colors: colors))
+            .modifier(NShiftPluginPaddingModifier(padding: style.padding))
             .offset(x: CGFloat(style.offset.x), y: CGFloat(style.offset.y))
             .modifier(NShiftPluginSafeAreaModifier(edges: style.ignoreSafeArea))
 
@@ -142,6 +143,25 @@ private struct NShiftPluginBackgroundModifier: ViewModifier {
             }
         } else {
             content
+        }
+    }
+}
+
+private struct NShiftPluginPaddingModifier: ViewModifier {
+    let padding: NShiftPluginPadding
+
+    func body(content: Content) -> some View {
+        if padding.isZero {
+            content
+        } else {
+            content.padding(
+                EdgeInsets(
+                    top: CGFloat(padding.resolvedTop),
+                    leading: CGFloat(padding.resolvedLeading),
+                    bottom: CGFloat(padding.resolvedBottom),
+                    trailing: CGFloat(padding.resolvedTrailing)
+                )
+            )
         }
     }
 }

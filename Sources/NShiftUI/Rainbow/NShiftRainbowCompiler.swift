@@ -203,6 +203,7 @@ public struct NShiftRainbowCompiler: Sendable {
         var minHeight: Double?
         var maxHeight: Double?
         var background: NShiftPluginBackground?
+        var padding = NShiftPluginPadding.zero
         var ignoreSafeArea = NShiftSafeAreaEdges()
         var offset = NShiftPluginOffset.zero
         var animation: NShiftPluginAnimation?
@@ -223,6 +224,8 @@ public struct NShiftRainbowCompiler: Sendable {
                 maxHeight = Self.number(parameter.value)
             case "background":
                 background = Self.background(parameter.value)
+            case "padding":
+                padding = Self.padding(parameter.value)
             case "ignoreSafeArea":
                 ignoreSafeArea = Self.edges(parameter.value)
             case "offset":
@@ -245,6 +248,7 @@ public struct NShiftRainbowCompiler: Sendable {
         return NShiftPluginStyle(
             frame: frame,
             background: background,
+            padding: padding,
             ignoreSafeArea: ignoreSafeArea,
             offset: offset,
             animation: animation
@@ -296,6 +300,54 @@ public struct NShiftRainbowCompiler: Sendable {
         }
         guard color != nil || !ignoreSafeArea.isEmpty else { return nil }
         return NShiftPluginBackground(color: color, ignoreSafeArea: ignoreSafeArea)
+    }
+
+    private static func padding(_ value: RainbowValue) -> NShiftPluginPadding {
+        guard case .object(let entries) = value else { return .zero }
+        var top: Int?
+        var leading: Int?
+        var trailing: Int?
+        var horizontal: Int?
+        var vertical: Int?
+        var bottom: Int?
+        for entry in entries {
+            let amount = integer(entry.value)
+            switch entry.key {
+            case "top":
+                top = amount
+            case "leading":
+                leading = amount
+            case "trailing":
+                trailing = amount
+            case "horizontal":
+                horizontal = amount
+            case "vertical":
+                vertical = amount
+            case "bottom":
+                bottom = amount
+            default:
+                break
+            }
+        }
+        return NShiftPluginPadding(
+            top: top,
+            leading: leading,
+            trailing: trailing,
+            horizontal: horizontal,
+            vertical: vertical,
+            bottom: bottom
+        )
+    }
+
+    private static func integer(_ value: RainbowValue) -> Int? {
+        switch value {
+        case .int(let int):
+            return int
+        case .double(let double):
+            return Int(double)
+        default:
+            return nil
+        }
     }
 
     private static func offset(_ value: RainbowValue) -> NShiftPluginOffset {
