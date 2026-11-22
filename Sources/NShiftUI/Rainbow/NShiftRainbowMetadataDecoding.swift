@@ -3,24 +3,35 @@ import RainbowParser
 
 public struct NShiftRainbowMetadataDecodingContext: Sendable {
     public let compilePlugins: @Sendable (String) throws -> [NShiftPluginModel]
+    /// The plugin's children as a standalone Rainbow document (with the
+    /// screen's `use` declarations). Template plugins such as a `ForEach` keep
+    /// it and compile it later, once per data item.
+    public let childrenSource: @Sendable () -> String
 
     public init(
-        compilePlugins: @escaping @Sendable (String) throws -> [NShiftPluginModel]
+        compilePlugins: @escaping @Sendable (String) throws -> [NShiftPluginModel],
+        childrenSource: @escaping @Sendable () -> String = { "" }
     ) {
         self.compilePlugins = compilePlugins
+        self.childrenSource = childrenSource
     }
 }
 
 public struct NShiftRainbowMetadataDecodeResult: Sendable {
     public let metadata: AnyNShiftMetadata?
     public let slots: [NShiftSlotName: [NShiftPluginModel]]
+    /// When true the compiler does not compile the plugin's children: the
+    /// plugin consumed them as a template through `childrenSource`.
+    public let consumesChildren: Bool
 
     public init(
         metadata: AnyNShiftMetadata?,
-        slots: [NShiftSlotName: [NShiftPluginModel]] = [:]
+        slots: [NShiftSlotName: [NShiftPluginModel]] = [:],
+        consumesChildren: Bool = false
     ) {
         self.metadata = metadata
         self.slots = slots
+        self.consumesChildren = consumesChildren
     }
 }
 

@@ -28,7 +28,8 @@ public struct NShiftRainbowCompiler: Sendable {
         let pins = try makePins(from: document.uses)
         return try compilePlugin(
             node: root,
-            pins: pins
+            pins: pins,
+            uses: document.uses
         )
     }
 
@@ -46,7 +47,8 @@ public struct NShiftRainbowCompiler: Sendable {
         return try document.nodes.map { node in
             try compilePlugin(
                 node: node,
-                pins: pins
+                pins: pins,
+                uses: document.uses
             )
         }
     }
@@ -65,7 +67,8 @@ public struct NShiftRainbowCompiler: Sendable {
 
     private func compilePlugin(
         node: RainbowNode,
-        pins: NShiftDSLVersionPins
+        pins: NShiftDSLVersionPins,
+        uses: [RainbowUseDeclaration] = []
     ) throws -> NShiftPluginModel {
         let pluginName: NShiftPluginName
         do {
@@ -80,16 +83,18 @@ public struct NShiftRainbowCompiler: Sendable {
             isEvent: false
         )
 
-        let children = try node.children.map { child in
-            try compilePlugin(node: child, pins: pins)
-        }
-        var slots = try compileSlots(node.slots, pins: pins)
-        let events = try compileModifierEvents(node.events, pins: pins)
         let decodedMetadata = try decodeMetadata(
             pluginName: node.name,
             parameters: node.parameters,
-            pins: pins
+            pins: pins,
+            uses: uses,
+            children: node.children
         )
+        let children = decodedMetadata.consumesChildren ? [] : try node.children.map { child in
+            try compilePlugin(node: child, pins: pins, uses: uses)
+        }
+        var slots = try compileSlots(node.slots, pins: pins, uses: uses)
+        let events = try compileModifierEvents(node.events, pins: pins, uses: uses)
         let style = try decodeStyle(from: node.style)
         for (slot, models) in decodedMetadata.slots {
             slots[slot, default: []].append(contentsOf: models)
@@ -109,7 +114,8 @@ public struct NShiftRainbowCompiler: Sendable {
 
     private func compileSlots(
         _ slots: [RainbowSlot],
-        pins: NShiftDSLVersionPins
+        pins: NShiftDSLVersionPins,
+        uses: [RainbowUseDeclaration] = []
     ) throws -> [NShiftSlotName: [NShiftPluginModel]] {
         var compiled: [NShiftSlotName: [NShiftPluginModel]] = [:]
         for slot in slots {
@@ -120,7 +126,7 @@ public struct NShiftRainbowCompiler: Sendable {
                 throw NShiftRainbowCompileError.invalidSlotName(slot.name)
             }
             let plugins = try slot.plugins.map { plugin in
-                try compilePlugin(node: plugin, pins: pins)
+                try compilePlugin(node: plugin, pins: pins, uses: uses)
             }
             compiled[slotName, default: []].append(contentsOf: plugins)
         }
@@ -129,7 +135,8 @@ public struct NShiftRainbowCompiler: Sendable {
 
     private func compileModifierEvents(
         _ triggers: [RainbowTrigger],
-        pins: NShiftDSLVersionPins
+        pins: NShiftDSLVersionPins,
+        uses: [RainbowUseDeclaration] = []
     ) throws -> [NShiftEventModel] {
         var events: [NShiftEventModel] = []
         for triggerNode in triggers {
@@ -141,7 +148,8 @@ public struct NShiftRainbowCompiler: Sendable {
                     try compileEvent(
                         node: eventNode,
                         trigger: trigger,
-                        pins: pins
+                        pins: pins,
+                        uses: uses
                     )
                 )
             }
@@ -152,7 +160,8 @@ public struct NShiftRainbowCompiler: Sendable {
     private func compileEvent(
         node: RainbowNode,
         trigger: NShiftTrigger,
-        pins: NShiftDSLVersionPins
+        pins: NShiftDSLVersionPins,
+        uses: [RainbowUseDeclaration] = []
     ) throws -> NShiftEventModel {
         let eventName: NShiftEventName
         do {
@@ -170,10 +179,11 @@ public struct NShiftRainbowCompiler: Sendable {
         let metadata = try decodeMetadata(
             pluginName: node.name,
             parameters: node.parameters,
-            pins: pins
+            pins: pins,
+            uses: uses
         )
-        let slots = try compileSlots(node.slots, pins: pins)
-        let nested = try compileModifierEvents(node.events, pins: pins)
+        let slots = try compileSlots(node.slots, pins: pins, uses: uses)
+        let nested = try compileModifierEvents(node.events, pins: pins, uses: uses)
 
         return NShiftEventModel(
             id: node.id ?? "",
@@ -189,7 +199,9 @@ public struct NShiftRainbowCompiler: Sendable {
     private func decodeMetadata(
         pluginName: String,
         parameters: [RainbowParameter],
-        pins: NShiftDSLVersionPins
+        pins: NShiftDSLVersionPins,
+        uses: [RainbowUseDeclaration] = [],
+        children: [RainbowNode] = []
     ) throws -> NShiftRainbowMetadataDecodeResult {
         let decoder = configuration.metadataDecoders[pluginName]
             ?? NShiftRainbowCatalog.shared.decoder(named: pluginName)
@@ -198,15 +210,20 @@ public struct NShiftRainbowCompiler: Sendable {
         }
         return try decoder.decode(
             parameters: parameters,
-            context: NShiftRainbowMetadataDecodingContext { parameterName in
-                let pluginNodes = Self.pluginNodes(
-                    named: parameterName,
-                    in: parameters
-                )
-                return try pluginNodes.map { plugin in
-                    try self.compilePlugin(node: plugin, pins: pins)
+            context: NShiftRainbowMetadataDecodingContext(
+                compilePlugins: { parameterName in
+                    let pluginNodes = Self.pluginNodes(
+                        named: parameterName,
+                        in: parameters
+                    )
+                    return try pluginNodes.map { plugin in
+                        try self.compilePlugin(node: plugin, pins: pins, uses: uses)
+                    }
+                },
+                childrenSource: {
+                    RainbowParser().encode(RainbowDocument(uses: uses, nodes: children))
                 }
-            }
+            )
         )
     }
 
