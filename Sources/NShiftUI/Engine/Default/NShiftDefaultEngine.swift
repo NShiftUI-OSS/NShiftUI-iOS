@@ -5,8 +5,14 @@ import SwiftUI
 public enum NShiftRenderingEngine {
     private static let key = "nshift.rendering-engine"
 
+    /// The engine handling the events of the current task. Events are created
+    /// while their engine handles a trigger, so services resolved for them
+    /// (such as `NShiftEngine`) belong to the screen that fired the trigger,
+    /// not to whichever screen was created last.
+    @TaskLocal public static var handling: (any NShiftEngine)?
+
     public static var current: (any NShiftEngine)? {
-        Thread.current.threadDictionary[key] as? any NShiftEngine
+        Thread.current.threadDictionary[key] as? any NShiftEngine ?? handling
     }
 
     public static func perform<T>(
@@ -80,11 +86,15 @@ open class NShiftDefaultEngine: NShiftEngineTree {
         onPluginID pluginID: String
     ) async {
         guard let node = node(withID: pluginID) else { return }
-        await eventHandler.handle(
-            trigger,
-            events: node.model.events,
-            viewModel: pluginViewModel
-        )
+        let events = node.model.events
+        let viewModel = pluginViewModel
+        await NShiftRenderingEngine.$handling.withValue(self) {
+            await eventHandler.handle(
+                trigger,
+                events: events,
+                viewModel: viewModel
+            )
+        }
     }
 
     open func replaceMetadata(pluginID: String, with metadata: AnyNShiftMetadata?) {

@@ -15,6 +15,11 @@ struct NShiftPluginContainerHost: View {
         self._holder = StateObject(wrappedValue: Holder(model: model))
     }
 
+    init(engine: any NShiftEngine) {
+        self.rootID = engine.rootID
+        self._holder = StateObject(wrappedValue: Holder(engine: engine))
+    }
+
     var body: some View {
         NShiftNodeView(
             node: engineTree.root,
@@ -40,6 +45,10 @@ private extension NShiftPluginContainerHost {
 
         init(model: NShiftPluginModel) {
             self.engine = NShiftEngineResolver.makeEngine(rootModel: model)
+        }
+
+        init(engine: any NShiftEngine) {
+            self.engine = engine
         }
     }
 }
