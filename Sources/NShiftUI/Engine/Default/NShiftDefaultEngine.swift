@@ -113,6 +113,34 @@ open class NShiftDefaultEngine: NShiftEngineTree {
         node.children.forEach(indexSubtree)
     }
 
+    open func insertChildren(
+        pluginID: String,
+        at index: Int,
+        with children: [NShiftPluginModel]
+    ) {
+        guard let node = node(withID: pluginID), children.isEmpty == false else { return }
+
+        var models = node.model.children
+        let position = min(max(index, 0), models.count)
+        models.insert(contentsOf: children, at: position)
+        let change = node.insertChildren(children, at: position)
+        change.removed.forEach(deindexSubtree)
+        node.model = node.model.replacingChildren(models)
+        change.added.forEach(indexSubtree)
+    }
+
+    open func appendSlot(
+        pluginID: String,
+        name: NShiftSlotName,
+        with models: [NShiftPluginModel]
+    ) {
+        guard let node = node(withID: pluginID), models.isEmpty == false else { return }
+
+        let added = node.appendSlotChildren(name, with: models)
+        node.model = node.model.replacingSlot(name, with: (node.model.slots[name] ?? []) + models)
+        added.forEach(indexSubtree)
+    }
+
     open func replaceSlots(
         pluginID: String,
         with slots: [NShiftSlotName: [NShiftPluginModel]]

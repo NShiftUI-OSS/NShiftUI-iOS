@@ -52,6 +52,48 @@ public final class NShiftPluginNode: ObservableObject, Identifiable {
         }
     }
 
+    /// Inserts nodes for `models` at `index`. Nodes before `index` keep their
+    /// identity; nodes after it are rebuilt because render IDs are positional.
+    /// Returns the detached nodes and the newly created ones.
+    @discardableResult
+    public func insertChildren(
+        _ models: [NShiftPluginModel],
+        at index: Int
+    ) -> (removed: [NShiftPluginNode], added: [NShiftPluginNode]) {
+        let position = min(max(index, 0), children.count)
+        let kept = Array(children[..<position])
+        let removed = Array(children[position...])
+        let rebuilt = (models + removed.map(\.model)).enumerated().map { offset, childModel in
+            NShiftPluginNode(
+                model: childModel,
+                parent: self,
+                renderId: renderId.appendingChild(at: position + offset)
+            )
+        }
+        children = kept + rebuilt
+        return (removed, rebuilt)
+    }
+
+    /// Appends nodes for `models` to the slot `name`, keeping existing nodes.
+    @discardableResult
+    public func appendSlotChildren(
+        _ name: NShiftSlotName,
+        with models: [NShiftPluginModel]
+    ) -> [NShiftPluginNode] {
+        let existing = slotChildren[name] ?? []
+        let added = models.enumerated().map { offset, childModel in
+            NShiftPluginNode(
+                model: childModel,
+                parent: self,
+                renderId: renderId.appendingSlot(name, at: existing.count + offset)
+            )
+        }
+        var next = slotChildren
+        next[name] = existing + added
+        slotChildren = next
+        return added
+    }
+
     public func replaceSlotChildren(
         _ name: NShiftSlotName,
         with models: [NShiftPluginModel]
