@@ -2,5 +2,5 @@ import Testing
 @testable import NShiftUI
 
 @Test func versionMatchesCurrentBeta() {
-    #expect(NShiftUIVersion.current == "0.2.0-beta.3")
+    #expect(NShiftUIVersion.current == "1.0.0")
 }
