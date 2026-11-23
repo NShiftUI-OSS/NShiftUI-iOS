@@ -1,24 +1,24 @@
 {
-  "originHash": "bf4fc61868974f7c1c1e4135f4cb8457bd44766f117d900c790cad4d3e66dff6",
-  "pins": [
+  "originHash" : "a29064a00fb520b16ee55359868676893f52eaec17e58d483ce73ec51b8330a1",
+  "pins" : [
     {
-      "identity": "rainbowparser-ios",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
-      "state": {
-        "revision": "f4a1932f999cf3d86193eca9d90c10bdf0ac9613",
-        "version": "0.2.0-beta.1"
+      "identity" : "rainbowparser-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/NShiftUI-OSS/RainbowParser-iOS.git",
+      "state" : {
+        "revision" : "93abb4e49bbbdba78b6ad45378aba19d115ef170",
+        "version" : "1.0.0"
       }
     },
     {
-      "identity": "swift-syntax",
-      "kind": "remoteSourceControl",
-      "location": "https://github.com/swiftlang/swift-syntax.git",
-      "state": {
-        "revision": "9de99a78f099e59caf2b2beec65a4c45d54b2081",
-        "version": "603.0.1"
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "9de99a78f099e59caf2b2beec65a4c45d54b2081",
+        "version" : "603.0.1"
       }
     }
   ],
-  "version": 3
+  "version" : 3
 }
