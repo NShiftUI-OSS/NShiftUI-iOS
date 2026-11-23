@@ -10,6 +10,7 @@ require_cmd swift xcodebuild
 log_step "toolchain"
 xcodebuild -version
 swift --version
-log_step "swift test"
-swift test
+# Tests reset shared registries and temporarily replace a global precondition handler.
+log_step "swift test --no-parallel"
+swift test --no-parallel
 log_ok "tests passed"
