@@ -13,7 +13,7 @@ Decisões duráveis e lacunas verificadas no código. **Não inventar** APIs par
 6. **Engine default open** — `NShiftDefaultEngine` é `open`; custom via `registerEngine` quando resolvido no container.
 7. **Children/slots no modelo** — `NShiftPluginModel.children` / `slots`; node espelha em `children` / `slotChildren`.
 8. **Views via DI** — `@NShiftPluginAssemble` emite `registerPlugin`; store resolve `AnyView`. Sem `pluginRegister()` / `@NShiftMainPluginRegister`.
-9. **Versão** — `NShiftUIVersion.current` = `0.2.0-beta.1`; branch `release/0.2.0-beta.1`.
+9. **Versão** — `NShiftUIVersion.current` = `1.0.0`; tag `v1.0.0`.
 10. **Platforms SPM** — iOS 15 / macOS 14.
 11. **Init canónico failable** — `NShiftPlugin` / container: `init?(model:resolver:eventHandler:engine:renderID:)`. `NShiftPluginWithViewModel` acrescenta `viewModel: (any NShiftPluginViewModel)?` para não colidir com `viewModel` do container. Container resolve a concreta no DI e grava a mesma instância em `engine.pluginViewModel`. Filhos desse protocol recebem a instância no `init`, via `make` / `makeView` / store. `optionalViewModel(as:)` devolve o cast opcional. Event: `init?(model:resolver:)`. Autor não sobrescreve. Metadata tipada e ViewModel de container (`resolve(T.self)`) falham para `nil` → skip render/execute. `eventHandler`/`engine` continuam unwrap/precondition.
 12. **Identidade dual** — `id?` (busca / replace* / events); `renderId` posicional (`r` / `r/c/i` / `r/s/Name/i`) para ForEach / `.id`. Não misturar; não reviver UUID-como-View-id.
@@ -25,7 +25,7 @@ Decisões duráveis e lacunas verificadas no código. **Não inventar** APIs par
 18. **Tokens CMS** — `NShiftTokenMetadata` + `@NShiftTokenMetadata`: **somente enum**, `RawValue == String`, sem associated values; sintetiza RawRepresentable / CaseIterable / Hashable / Sendable.
 19. **Rainbow** — NShiftUI depende de `rainbowparser` (sintaxe). Semântica em `NShiftRainbowCompiler`: `()` → params/metadata/style; `{}` → children; nós marcadores (`NavLeading`…) → slots; `OnTap`… → trigger + events. Metadata tipada via `NShiftRainbowMetadataDecoding` (host registra Decodable por plugin).
 20. **Macros em lote** — `providingMacros` tem **7** tipos. Corte parcial quebra expansão e hosts; Plugin + Assemble + (apagado MainRegister) + Event + EventAssemble + SlotKey + Metadata + Token viajam juntos.
-21. **Sem CI GitLab** — `.gitlab-ci.yml` só com `workflow: when: never` (sem SAST / secret-detection / `swift test` no runner). Testes no host: `swift test`.
+21. **CI GitHub Actions** — `Release` verifica testes e build de release antes de publicar a tag. Testes locais: `swift test --no-parallel`.
 
 ## Known gaps
 
@@ -33,13 +33,11 @@ Decisões duráveis e lacunas verificadas no código. **Não inventar** APIs par
 |-----|-----------|---------|
 | **nshiftuikit** | Kit irmão ainda pode estar em API antiga. | Migrar para `children()`/`slots` + `registerPlugin` / `@NShiftPluginAssemble` se for consumir 0.2. |
 | **Rainbow style completo** | Compiler só mapeia `style.spacing` hoje. | Expandir frame/alignment quando o host precisar. |
-| **README template** | Ainda template GitLab. | Não usar como fonte de arquitetura. |
 | **Package.resolved no .gitignore** | Pin local pode divergir. | Remap lê resolved se presente. |
 
 ## Unknowns (não especular)
 
 - Escopo exato do app de demonstração do TCC (fora deste package).
-- Roadmap de API estável pós-beta — tratar `0.2.0-beta.1` como pré-estável.
 
 ## Ao remapear
 

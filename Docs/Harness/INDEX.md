@@ -27,5 +27,5 @@ Leia só o necessário. Ordem sugerida:
 
 - Não carregar `.build/` nem checkouts de `swift-syntax`.
 - Não ler todos os testes de macro de uma vez; abra o arquivo do macro sob teste.
-- README na raiz ainda é template GitLab — não use como fonte de verdade.
+- O README da raiz cobre instalação, versão publicada e build.
 - Não tratar `Experiments/TypedRegistryPrototype` como API do product.

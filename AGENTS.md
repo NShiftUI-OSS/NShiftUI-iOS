@@ -1,6 +1,6 @@
 # NShiftUI — Agent Guide
 
-NShiftUI is a **plugin-based SwiftUI runtime**: host apps register services, plugin views, and events via DI + macros (`registerPlugin` / `@NShiftPluginAssemble`), then render `NShiftPluginModel` trees through `NShiftView(model:)`. It is **not** a design system. Version: **0.2.0-beta.1** (`NShiftUIVersion.current`; branch `release/0.2.0-beta.1`). Platforms: iOS 15+ / macOS 14+ (SPM).
+NShiftUI is a **plugin-based SwiftUI runtime**: host apps register services, plugin views, and events via DI + macros (`registerPlugin` / `@NShiftPluginAssemble`), then render `NShiftPluginModel` trees through `NShiftView(model:)`. It is **not** a design system. Version: **1.0.0** (`NShiftUIVersion.current`; tag `v1.0.0`). Platforms: iOS 15+ / macOS 14+ (SPM).
 
 ## Read order (progressive disclosure)
 
@@ -24,11 +24,11 @@ swift test
 ## Ecosystem
 
 - **Sole SPM product:** `NShiftUI` (`import NShiftUI` re-exports Domain, DI, macros).
-- External deps: `swift-syntax` (macros) + `rainbowparser` (`release/0.1.0-beta.1`) for Rainbow → `NShiftPluginModel`.
+- External deps: `swift-syntax` (macros) + `rainbowparser` (`1.0.0`) for Rainbow → `NShiftPluginModel`.
 - Does **not** depend on `nshiftuikit`.
 - Views: DI `registerPlugin` (AnyView at the store boundary). `NShiftView` roots are registered `NShiftPluginContainer` types.
 - Plugin author DX: SwiftUI `var body` + `children()` / `slots(key)`; model field `children`; identity = optional server `id` + positional `renderId` (`r` / `r/c/i`).
-- Validated host: NShiftAppPOC (Precision Lab — counter identity across `replaceChildren`).
+- Demo host: NShiftUI-Demo (iOS app in `ios/`).
 
 ## Operating principles
 

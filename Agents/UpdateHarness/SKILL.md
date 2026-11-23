@@ -21,7 +21,7 @@ Remapeia o harness de IA deste package a partir do código real. Fonte canônica
    - `Package.resolved` se existir (pin de swift-syntax)
    - Árvore `Sources/**` e `Tests/**`
    - `NShiftUIVersion` / branch git se disponível
-   - `README.md`, `.gitlab-ci.yml` (gaps de docs/CI)
+   - `README.md`, `.github/workflows/` (gaps de docs/CI)
    - Grep de `public` para superfície de API
 
 2. **Diff** contra `Docs/Harness/Architecture.md`, `Map.md`, `API.md`, `Conventions.md`, `Decisions.md`, `INDEX.md`

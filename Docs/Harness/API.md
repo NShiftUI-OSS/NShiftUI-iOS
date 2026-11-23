@@ -21,7 +21,7 @@ Somente o que é `public` (ou macros exportadas). Tipos `package`/`internal` nã
 | `NShiftConfig` | `shared`; `startup(hostContainer:assemblies:)`; stores resolvidos pós-startup |
 | `NShiftDefaultEngine` | `open class`; `NShiftEngineTree`; `pluginStore:` default empty; replace* + `handle` + `makeView` |
 | `NShiftPluginStyleModifier` / `.nShiftPluginStyle` | SwiftUI |
-| `NShiftUIVersion.current` | `"0.2.0-beta.1"` |
+| `NShiftUIVersion.current` | `"1.0.0"` |
 | `NShiftRainbowCompiler` | Rainbow source/document → `NShiftPluginModel` |
 | `NShiftRainbowCompileConfiguration` | slot markers, defaultVersion, metadata decoders |
 | `NShiftRainbowMetadataDecoding` / `NShiftRainbowDecodableMetadataDecoder` | decode params → `AnyNShiftMetadata` |

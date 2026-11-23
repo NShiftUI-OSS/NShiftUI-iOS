@@ -12,7 +12,7 @@ Usado por `Agents/UpdateHarness/SKILL.md`. Agentes devem seguir o skill; este ar
 
 ## Checklist
 
-1. Re-scan: `Package.swift`, `Package.resolved` (se existir), `Sources/**`, `Tests/**`, `README.md`, `.gitlab-ci.yml`, versão (`NShiftUIVersion` / branch).
+1. Re-scan: `Package.swift`, `Package.resolved` (se existir), `Sources/**`, `Tests/**`, `README.md`, `.github/workflows/`, versão publicada (`NShiftUIVersion` / tag).
 2. Diff mental vs `Docs/Harness/*` — o que ficou stale?
 3. Atualizar, nesta ordem preferencial:
    - `Architecture.md`

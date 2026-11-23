@@ -127,7 +127,7 @@ Rendering/Node/NShiftNodeView.swift   # public; engine.makeView + renderId
                    NShiftSlotsAccessor.swift  # generic só em Key: NShiftSlotKey
 Style/NShiftPluginStyle+SwiftUI.swift       # .nShiftPluginStyle
       NShiftPluginAlignment+SwiftUI.swift
-Version/NShiftUIVersion.swift               # "0.2.0-beta.1"
+Version/NShiftUIVersion.swift               # "1.0.0"
 Support/NShiftRuntimePrecondition.swift     # package test hook for startup/view traps
 Rainbow/NShiftRainbowCompiler.swift
         NShiftRainbowCompileConfiguration.swift

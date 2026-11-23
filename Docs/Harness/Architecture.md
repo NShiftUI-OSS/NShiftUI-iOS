@@ -4,7 +4,7 @@
 
 NShiftUI = runtime SwiftUI orientado a **plugins** e **events**, com DI próprio e macros de assembly. Não é design system.
 
-Versão: `0.2.0-beta.1` (`NShiftUIVersion.current`). Branch: `release/0.2.0-beta.1`.  
+Versão: `1.0.0` (`NShiftUIVersion.current`). Tag: `v1.0.0`.
 Platforms: iOS 15+, macOS 14+ (piso SPM). Swift 6 (`swiftLanguageModes: [.v6]`). Tools: 6.3.
 
 ## Target graph
@@ -30,9 +30,9 @@ NShiftUI                (único product SPM; Exports.swift @_exported Domain+DI+
 
 Não há product separado `NShiftUIMacros` — macros entram via `import NShiftUI`.
 
-**Dependências externas:** `swiftlang/swift-syntax` (`from: "603.0.0-latest"`) + `rainbowparser` (branch `release/0.1.0-beta.1`).
+**Dependências externas:** `swiftlang/swift-syntax` (`from: "603.0.0-latest"`) + `rainbowparser` (tag `v1.0.0`).
 
-**Não depende de:** `nshiftuikit`. É consumido por apps/kits (ex.: POC host, futuro demo TCC).
+**Não depende de:** `nshiftuikit`. É consumido por apps/kits (ex.: POC host, NShiftUI-Demo).
 
 **Rainbow:** `NShiftRainbowCompiler` (em `NShiftUI`) faz `RainbowDocument` → `NShiftPluginModel` (slots marcadores, triggers `On*`, metadata via decoders registrados).
 
